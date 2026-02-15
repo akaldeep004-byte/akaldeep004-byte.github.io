@@ -305,41 +305,17 @@
       opacity:.22;
       pointer-events:none;
     }
-    .process-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      align-items:stretch;
-    }
-    .process-right{
-  display:flex;
-  flex-direction:column;
+ .process-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+  align-items:stretch;
 }
-    .process-left{
-  display:flex;
-  flex-direction:column;
-}
-    }
-    .p-card{
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(10,10,11,.55);
-      backdrop-filter: blur(10px);
-      padding:14px;
-      transition: transform .20s var(--ease), border-color .20s var(--ease), background .20s var(--ease);
-      transform: translateZ(0);
-    }
-    .p-card:hover{
-      transform: scale(var(--scale));
-      border-color: rgba(255,255,255,.22);
-      background: rgba(10,10,11,.62);
-    }
-    .p-left-inner{
-      width:100%;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      gap:10px;
+
+.process-left{min-height:360px; display:flex;}
+.process-right{min-height:360px; display:grid; grid-template-rows:repeat(3,1fr); gap:12px;}
+
+.p-left-inner{width:100%; display:flex; flex-direction:column; justify-content:flex-start;}
     }
     .p-title{
       font-weight:900;
@@ -620,40 +596,48 @@
   </section>
 
   <section id="process" class="wrap">
-    <div class="section-head">
-      <h2>Process</h2>
-      <p>Clear steps. Premium finish. No surprises.</p>
+  <div class="section-head">
+    <h2>Process</h2>
+    <p>Clear steps. Premium finish. No surprises.</p>
+  </div>
+
+  <div class="process-shell">
+    <div class="process-grid">
+      <!-- LEFT: one big write-up card -->
+      <div class="process-left">
+        <div class="p-card p-left-inner">
+          <div>
+            <p class="p-title">From concept → premium finish</p>
+            <p class="p-sub">
+              We start with a short consult to understand the space, lighting, and your style.
+              Then we design a clean, premium concept that complements your interior (or your brand).
+              Once approved, we prep surfaces properly and install with precision—so the final work looks intentional,
+              high-end, and built to last.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: three stacked cards -->
+      <div class="process-right">
+        <div class="p-card">
+          <p class="p-title" style="margin:0;">Consult</p>
+          <p class="p-sub">Space review, inspiration, measurements, timeline.</p>
+        </div>
+
+        <div class="p-card">
+          <p class="p-title" style="margin:0;">Design</p>
+          <p class="p-sub">Mockups, palette refinement, final approval.</p>
+        </div>
+
+        <div class="p-card">
+          <p class="p-title" style="margin:0;">Install</p>
+          <p class="p-sub">Surface prep, precision execution, clean finish.</p>
+        </div>
+      </div>
     </div>
-
-    <div class="process-shell">
-      <div class="process-grid">
-        <<div class="process-left">
-  <div class="p-card p-left-inner" style="flex:1;">
-            <div>
-              <p class="p-title">From concept → premium finish</p>
-              <p class="p-sub">
-                We start with a short consult to understand the space, lighting, and your style. Then we design a clean, premium concept
-                that complements your interior (or your brand). Once approved, we prep surfaces properly and install with precision—so the final
-                work looks intentional, high-end, and built to last.
-              </p>
-             
-     <div class="process-right">
-  <div class="p-card" style="flex:1;">
-    <p class="p-title">Consult</p>
-    <p class="p-sub">Space review, inspiration, measurements, timeline.</p>
   </div>
-
-  <div class="p-card" style="flex:1;">
-    <p class="p-title">Design</p>
-    <p class="p-sub">Mockups, palette refinement, final approval.</p>
-  </div>
-
-  <div class="p-card" style="flex:1;">
-    <p class="p-title">Install</p>
-    <p class="p-sub">Surface prep, precision execution, clean finish.</p>
-  </div>
-</div>
-  </section>
+</section>
 
   <section id="enquiry" class="wrap">
     <div class="cta-bar">
