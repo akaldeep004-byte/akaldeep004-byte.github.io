@@ -26,6 +26,11 @@
       /* subtle interactions */
       --scale: 1.012;
       --ease: cubic-bezier(.2,.8,.2,1);
+
+      /* tasteful accent for "artistic" touches */
+      --acc1: rgba(255, 196, 92, .28);  /* warm gold */
+      --acc2: rgba(110, 231, 255, .22); /* icy cyan */
+      --acc3: rgba(167, 139, 250, .22); /* soft violet */
     }
 
     *{box-sizing:border-box}
@@ -88,7 +93,7 @@
       align-items:center;
       color:var(--muted);
       font-size:14px;
-      max-width: 60vw;
+      max-width: 62vw;
     }
     .nav-links a{
       padding:8px 10px;
@@ -103,7 +108,7 @@
       background: rgba(255,255,255,.04);
       transform: scale(var(--scale));
     }
-    /* Active state: very obvious */
+    /* Active state: obvious */
     .nav-links a.active{
       background:#ffffff;
       color:#0a0a0b;
@@ -219,7 +224,7 @@
     /* SECTIONS */
     section{
       padding:48px 0;
-      scroll-margin-top: 90px; /* clicking nav won't hide headings */
+      scroll-margin-top: 90px;
     }
     .section-head{
       display:flex; justify-content:space-between; align-items:flex-end; gap:16px;
@@ -268,52 +273,98 @@
       font-size:13px;
       color:var(--muted);
     }
-
     .span-7{grid-column: span 7;}
     .span-5{grid-column: span 5;}
     .span-4{grid-column: span 4;}
 
     /* PROCESS */
-    .story{
-      display:grid;
-      grid-template-columns: .9fr 1.1fr;
-      gap:16px;
-      align-items:start;
-    }
-    .sticky{
-      position: sticky;
-      top: 92px;
-      border:1px solid var(--line);
-      background: var(--panel);
+    .process-shell{
+      position: relative;
       border-radius: var(--r);
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(700px 260px at 20% 10%, var(--acc2), transparent 55%),
+        radial-gradient(600px 260px at 80% 30%, var(--acc3), transparent 55%),
+        radial-gradient(600px 260px at 30% 90%, var(--acc1), transparent 60%),
+        rgba(255,255,255,.02);
       padding:16px;
+      overflow:hidden;
+    }
+    .process-shell::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(120deg, rgba(255,255,255,.16), rgba(255,255,255,0));
+      opacity:.22;
+      pointer-events:none;
+    }
+    .process-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      align-items:stretch;
+    }
+    .process-right{
+      display:grid;
+      grid-template-rows: repeat(3, 1fr);
+      gap:12px;
+      min-height: 360px;
+    }
+    .process-left{
+      min-height: 360px;
+      display:flex;
+    }
+    .p-card{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(10,10,11,.55);
+      backdrop-filter: blur(10px);
+      padding:14px;
       transition: transform .20s var(--ease), border-color .20s var(--ease), background .20s var(--ease);
       transform: translateZ(0);
     }
-    .sticky:hover{
+    .p-card:hover{
       transform: scale(var(--scale));
-      border-color: rgba(255,255,255,.18);
-      background: var(--panel2);
+      border-color: rgba(255,255,255,.22);
+      background: rgba(10,10,11,.62);
     }
-    .sticky .big{margin:0; font-size:20px; font-weight:800; letter-spacing:-.01em;}
-    .steps{display:grid; gap:10px}
-    .step{
-      border:1px solid var(--line);
-      background: var(--panel);
-      border-radius:14px;
-      padding:12px;
-      transition: transform .20s var(--ease), border-color .20s var(--ease), background .20s var(--ease);
+    .p-left-inner{
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .p-title{
+      font-weight:900;
+      letter-spacing:-.01em;
+      font-size:18px;
+      margin:0;
+    }
+    .p-sub{
+      color: var(--muted);
+      font-size:14px;
+      margin:6px 0 0;
+      max-width: 48ch;
+    }
+    .p-micro{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      color: rgba(255,255,255,.72);
+      font-size:12px;
+      margin-top: 10px;
+    }
+    .chip{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      padding:7px 10px;
+      border-radius: 999px;
+      transition: transform .20s var(--ease), background .20s var(--ease);
       transform: translateZ(0);
     }
-    .step:hover{
-      transform: scale(var(--scale));
-      border-color: rgba(255,255,255,.18);
-      background: var(--panel2);
-    }
-    .step b{display:block; margin-bottom:4px}
-    .step span{color:var(--muted); font-size:14px}
+    .chip:hover{transform: scale(var(--scale)); background: rgba(255,255,255,.06);}
 
-    /* ENQUIRY CTA */
+    /* ENQUIRY + CONTACT */
     .cta-bar{
       border:1px solid var(--line);
       border-radius: var(--r);
@@ -326,6 +377,39 @@
     .cta-bar:hover{
       transform: scale(var(--scale));
       border-color: rgba(255,255,255,.18);
+    }
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:12px;
+    }
+    .contact-card{
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(10,10,11,.55);
+      backdrop-filter: blur(10px);
+      padding:14px;
+      transition: transform .20s var(--ease), border-color .20s var(--ease), background .20s var(--ease);
+      transform: translateZ(0);
+      min-height: 110px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:8px;
+    }
+    .contact-card:hover{
+      transform: scale(var(--scale));
+      border-color: rgba(255,255,255,.22);
+      background: rgba(10,10,11,.62);
+    }
+    .contact-card b{font-size:14px}
+    .contact-card span{color:var(--muted); font-size:13px}
+    .contact-card a.btn{
+      align-self:flex-start;
+      padding:8px 12px;
+      font-size:13px;
     }
 
     footer{
@@ -383,11 +467,15 @@
       .hero{grid-template-columns: 1fr}
       h1{font-size:42px}
       .hero-visual{min-height:360px}
-      .story{grid-template-columns: 1fr}
-      .sticky{position:relative; top:auto}
+
       .grid .span-7, .grid .span-5, .grid .span-4{grid-column: span 12;}
 
-      /* keep nav visible and scrollable */
+      .process-grid{grid-template-columns: 1fr}
+      .process-right{min-height: auto}
+      .process-left{min-height: auto}
+
+      .contact-grid{grid-template-columns: 1fr}
+
       .nav-links{
         overflow:auto;
         white-space:nowrap;
@@ -410,10 +498,11 @@
       <nav class="nav-links" aria-label="Primary">
         <a href="#works">Works</a>
         <a href="#process">Process</a>
-        <a href="#contact">Enquiry</a>
+        <a href="#enquiry">Enquiry</a>
+        <a href="#contact">Contact</a>
       </nav>
 
-      <a class="btn" href="#contact">Enquire</a>
+      <a class="btn" href="#contact">Contact</a>
     </div>
   </div>
 
@@ -426,7 +515,7 @@
 
         <div class="cta">
           <a class="btn primary" href="#works">Explore Works</a>
-          <a class="btn" href="#contact">Request a Quote</a>
+          <a class="btn" href="#enquiry">Request a Quote</a>
         </div>
 
         <div class="pills" aria-label="Focus areas">
@@ -497,29 +586,44 @@
       <p>Clear steps. Premium finish. No surprises.</p>
     </div>
 
-    <div class="story">
-      <div class="sticky">
-        <p class="big">From concept → premium finish</p>
-      </div>
+    <div class="process-shell">
+      <div class="process-grid">
+        <div class="process-left">
+          <div class="p-card p-left-inner">
+            <div>
+              <p class="p-title">From concept → premium finish</p>
+              <p class="p-sub">We combine design clarity with meticulous execution—tailored to your space, brand, and timeline.</p>
+              <div class="p-micro">
+                <span class="chip">GTA service</span>
+                <span class="chip">Premium prep</span>
+                <span class="chip">Clean finish</span>
+              </div>
+            </div>
+            <div style="color:var(--muted); font-size:13px;">
+              Tip: use “Enquiry” to request a quote, or “Contact” for Instagram / email / WhatsApp.
+            </div>
+          </div>
+        </div>
 
-      <div class="steps">
-        <div class="step">
-          <b>Consult</b>
-          <span>Space review, inspiration, measurements, timeline.</span>
-        </div>
-        <div class="step">
-          <b>Design</b>
-          <span>Mockups, palette refinement, final approval.</span>
-        </div>
-        <div class="step">
-          <b>Install</b>
-          <span>Surface prep, precision execution, clean finish.</span>
+        <div class="process-right">
+          <div class="p-card">
+            <p class="p-title" style="margin:0;">Consult</p>
+            <p class="p-sub">Space review, inspiration, measurements, timeline.</p>
+          </div>
+          <div class="p-card">
+            <p class="p-title" style="margin:0;">Design</p>
+            <p class="p-sub">Mockups, palette refinement, final approval.</p>
+          </div>
+          <div class="p-card">
+            <p class="p-title" style="margin:0;">Install</p>
+            <p class="p-sub">Surface prep, precision execution, clean finish.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="contact" class="wrap">
+  <section id="enquiry" class="wrap">
     <div class="cta-bar">
       <div>
         <div class="kicker">Enquiry</div>
@@ -528,7 +632,40 @@
           Next step: we’ll add your enquiry form here with the exact fields you want.
         </div>
       </div>
-      <a class="btn primary" href="#contact">Add Enquiry Form (Next)</a>
+      <a class="btn primary" href="#enquiry">Add Enquiry Form (Next)</a>
+    </div>
+  </section>
+
+  <section id="contact" class="wrap">
+    <div class="section-head">
+      <h2>Contact</h2>
+      <p>Fastest way to reach us for residential & commercial projects in the GTA.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div>
+          <b>Instagram</b>
+          <div><span>DM for quick questions & references.</span></div>
+        </div>
+        <a class="btn" href="https://instagram.com/wallmakerss" target="_blank" rel="noopener">Open Instagram</a>
+      </div>
+
+      <div class="contact-card">
+        <div>
+          <b>Email</b>
+          <div><span>Share photos, dimensions, and location.</span></div>
+        </div>
+        <a class="btn" href="mailto:akaldeep001@gmail.com">Email Wallmakers</a>
+      </div>
+
+      <div class="contact-card">
+        <div>
+          <b>WhatsApp</b>
+          <div><span>Quick replies for timelines & estimates.</span></div>
+        </div>
+        <a class="btn" href="https://wa.me/14372557407" target="_blank" rel="noopener">Chat on WhatsApp</a>
+      </div>
     </div>
   </section>
 
@@ -579,8 +716,7 @@
         lbImg.src = "";
       }
 
-      var works = document.querySelectorAll(".work");
-      works.forEach(function(card){
+      document.querySelectorAll(".work").forEach(function(card){
         card.addEventListener("click", function(){
           openLightbox(card.dataset.src, card.dataset.title);
         });
@@ -594,8 +730,7 @@
         if (e.key === "Escape") closeLightbox();
       });
 
-      // SCROLLSPY (THIS IS THE KEY)
-      // Uses a "middle band" of the viewport so only one section becomes active at a time.
+      // SCROLLSPY (stable)
       var navLinks = Array.from(document.querySelectorAll(".nav-links a"));
       var sections = navLinks
         .map(function(a){ return document.querySelector(a.getAttribute("href")); })
@@ -607,9 +742,10 @@
         });
       }
 
-      // Default active
+      // Default
       setActive("works");
 
+      // Center “band” observer -> prevents Works staying active too long
       var spy = new IntersectionObserver(function(entries){
         entries.forEach(function(entry){
           if (entry.isIntersecting) setActive(entry.target.id);
@@ -617,17 +753,15 @@
       }, {
         root: null,
         threshold: 0.01,
-        // Shrink viewport to a center "band" to prevent Works from staying active forever
         rootMargin: "-45% 0px -45% 0px"
       });
 
       sections.forEach(function(sec){ spy.observe(sec); });
 
-      // Also set active immediately on click (instant feedback)
+      // Instant highlight on click
       navLinks.forEach(function(a){
         a.addEventListener("click", function(){
-          var id = a.getAttribute("href").slice(1);
-          setActive(id);
+          setActive(a.getAttribute("href").slice(1));
         });
       });
     })();
