@@ -5,26 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Wallmakers | Luxury Custom Wall Art in GTA</title>
   <meta name="description" content="Wallmakers creates minimal, luxury custom wall art for residential and commercial spaces across the GTA. Murals, feature walls, and premium finishes." />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Luxury typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
       --bg:#0a0a0b;
-      --panel:#101013;
-      --text:#f3f3f3;
+      --panel: rgba(255,255,255,.04);
+      --panel2: rgba(255,255,255,.06);
+      --text:#f4f4f4;
       --muted:#b6b6b6;
       --line:rgba(255,255,255,.10);
-      --shadow: 0 20px 80px rgba(0,0,0,.55);
+      --line2:rgba(255,255,255,.14);
+      --shadow: 0 22px 90px rgba(0,0,0,.55);
       --max:1120px;
       --r:18px;
+
+      /* subtle interaction */
+      --hoverScale: 1.015;
+      --hoverScaleSm: 1.01;
+      --ease: cubic-bezier(.2,.8,.2,1);
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0;
-     font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--text);
       background:
         radial-gradient(1200px 700px at 70% -10%, rgba(255,255,255,.10), transparent 60%),
@@ -34,56 +44,68 @@
     }
     a{color:inherit; text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 20px}
-    .line{border-top:1px solid var(--line)}
+    .divider{border-top:1px solid var(--line)}
 
     /* NAV */
     .nav{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(10px);
+      position:sticky; top:0; z-index:60;
+      backdrop-filter: blur(12px);
       background: rgba(10,10,11,.72);
       border-bottom:1px solid var(--line);
     }
     .nav-inner{
-      height:72px;
-      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      height:74px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
     }
     .brand{
-  display:flex; align-items:center; gap:10px;
-  white-space:nowrap;
-}
-
-.brand-name{
-  font-family: "Playfair Display", serif;
-  font-weight: 600;
-  letter-spacing: .02em;
-  font-size: 18px;
-}
+      display:flex; align-items:center; gap:10px;
+      white-space:nowrap;
+      transform: translateZ(0);
+    }
     .logo{
       width:34px; height:34px; border-radius:10px;
       display:grid; place-items:center;
       border:1px solid var(--line);
       background: rgba(255,255,255,.04);
       font-weight:800;
+      transition: transform .25s var(--ease), background .25s var(--ease);
     }
+    .brand-name{
+      font-family:"Playfair Display", serif;
+      font-weight:600;
+      letter-spacing:.02em;
+      font-size:18px;
+    }
+    .brand:hover .logo{
+      transform: scale(var(--hoverScaleSm));
+      background: rgba(255,255,255,.06);
+    }
+
     .nav-links{
       display:flex;
       gap:10px;
-      font-size:14px;
-      color:var(--muted);
       align-items:center;
+      color:var(--muted);
+      font-size:14px;
     }
     .nav-links a{
       padding:8px 10px;
       border-radius:999px;
       border:1px solid transparent;
-      transition: background .2s ease, border-color .2s ease, color .2s ease;
+      transition: background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease), transform .25s var(--ease);
       white-space:nowrap;
+      transform: translateZ(0);
     }
-    .nav-links a:hover{color:var(--text)}
+    .nav-links a:hover{
+      color:var(--text);
+      transform: scale(var(--hoverScaleSm));
+      background: rgba(255,255,255,.04);
+    }
     .nav-links a.active{
       color:var(--text);
       border-color: var(--line);
-      background: rgba(255,255,255,.05);
+      background: rgba(255,255,255,.06);
     }
 
     .btn{
@@ -93,16 +115,25 @@
       background: rgba(255,255,255,.06);
       font-size:14px;
       white-space:nowrap;
+      transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease), filter .25s var(--ease);
+      transform: translateZ(0);
     }
-    .btn:hover{background: rgba(255,255,255,.10)}
+    .btn:hover{
+      transform: scale(var(--hoverScaleSm));
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.18);
+    }
     .btn.primary{
-      background: #fff; color:#0a0a0b; border-color:transparent;
+      background:#fff; color:#0a0a0b; border-color:transparent;
       font-weight:700;
     }
-    .btn.primary:hover{filter:brightness(.96)}
+    .btn.primary:hover{
+      transform: scale(var(--hoverScale));
+      filter: brightness(.97);
+    }
 
     /* HERO */
-    header{padding:74px 0 24px}
+    header{padding:76px 0 26px}
     .hero{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
@@ -120,6 +151,8 @@
       font-size:54px;
       line-height:1.03;
       letter-spacing:-.02em;
+      font-family: "Playfair Display", serif;
+      font-weight: 600;
     }
     .lead{
       color:var(--muted);
@@ -136,6 +169,12 @@
       background: rgba(255,255,255,.04);
       color:var(--muted);
       font-size:13px;
+      transition: transform .25s var(--ease), background .25s var(--ease);
+      transform: translateZ(0);
+    }
+    .pill:hover{
+      transform: scale(var(--hoverScaleSm));
+      background: rgba(255,255,255,.06);
     }
 
     .hero-visual{
@@ -146,30 +185,36 @@
       position:relative;
       min-height: 420px;
       box-shadow: var(--shadow);
+      transition: transform .35s var(--ease), border-color .35s var(--ease);
+      transform: translateZ(0);
+    }
+    .hero-visual:hover{
+      transform: scale(var(--hoverScaleSm));
+      border-color: rgba(255,255,255,.18);
     }
     .hero-visual::before{
       content:"";
       position:absolute; inset:0;
       background:
-        linear-gradient(180deg, rgba(10,10,11,.12), rgba(10,10,11,.72)),
+        linear-gradient(180deg, rgba(10,10,11,.10), rgba(10,10,11,.78)),
         url("https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1800&q=80");
       background-size:cover;
       background-position:center;
-      opacity:.9;
-      transform: scale(1.03);
+      opacity:.95;
+      transform: scale(1.02);
     }
-    .hero-visual .badge{
-      position:absolute; left:16px; bottom:16px; right:16px;
+    .badge{
+      position:absolute; left:16px; right:16px; bottom:16px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(10,10,11,.55);
       backdrop-filter: blur(10px);
       border-radius: 14px;
-      padding:12px 12px;
+      padding:12px;
       display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
       color:var(--muted);
       font-size:13px;
     }
-    .hero-visual .badge b{color:var(--text)}
+    .badge b{color:var(--text)}
 
     /* SECTIONS */
     section{padding:48px 0}
@@ -177,8 +222,17 @@
       display:flex; justify-content:space-between; align-items:flex-end; gap:16px;
       margin-bottom:14px;
     }
-    .section-head h2{margin:0; font-size:22px; letter-spacing:-.01em}
-    .section-head p{margin:0; color:var(--muted); font-size:14px; max-width:60ch}
+    .section-head h2{
+      margin:0;
+      font-size:22px;
+      letter-spacing:-.01em;
+    }
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      max-width:60ch;
+    }
 
     /* WORKS */
     .grid{
@@ -187,7 +241,6 @@
       gap:12px;
     }
     .work{
-      grid-column: span 4;
       border-radius: 18px;
       border:1px solid var(--line);
       overflow:hidden;
@@ -195,11 +248,27 @@
       position:relative;
       min-height: 230px;
       cursor:pointer;
-      transition: transform .25s ease, background .25s ease;
+      transition: transform .28s var(--ease), background .28s var(--ease), border-color .28s var(--ease);
+      transform: translateZ(0);
     }
-    .work:hover{transform: translateY(-2px); background: rgba(255,255,255,.05)}
-    .work img{width:100%; height:100%; object-fit:cover; display:block; opacity:.9}
-    .work .cap{
+    .work:hover{
+      transform: scale(var(--hoverScaleSm));
+      background: rgba(255,255,255,.05);
+      border-color: rgba(255,255,255,.18);
+    }
+    .work img{
+      width:100%; height:100%;
+      object-fit:cover;
+      display:block;
+      opacity:.92;
+      transform: scale(1);
+      transition: transform .45s var(--ease), opacity .3s var(--ease);
+    }
+    .work:hover img{
+      transform: scale(1.02);
+      opacity:.96;
+    }
+    .cap{
       position:absolute; left:12px; right:12px; bottom:12px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(10,10,11,.55);
@@ -209,9 +278,9 @@
       font-size:13px;
       color:var(--muted);
     }
-    .span-6{grid-column: span 6;}
-    .span-5{grid-column: span 5;}
+
     .span-7{grid-column: span 7;}
+    .span-5{grid-column: span 5;}
     .span-4{grid-column: span 4;}
 
     /* PROCESS */
@@ -225,33 +294,53 @@
       position: sticky;
       top: 92px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
+      background: var(--panel);
       border-radius: var(--r);
       padding:16px;
+      transition: transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
+      transform: translateZ(0);
+    }
+    .sticky:hover{
+      transform: scale(var(--hoverScaleSm));
+      border-color: rgba(255,255,255,.18);
+      background: var(--panel2);
     }
     .sticky .big{
+      margin:0;
       font-size:20px;
       font-weight:750;
       letter-spacing:-.01em;
-      margin:0;
     }
     .steps{display:grid; gap:10px}
     .step{
       border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
+      background: var(--panel);
       border-radius: 14px;
       padding:12px;
+      transition: transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
+      transform: translateZ(0);
+    }
+    .step:hover{
+      transform: scale(var(--hoverScaleSm));
+      border-color: rgba(255,255,255,.18);
+      background: var(--panel2);
     }
     .step b{display:block; margin-bottom:4px}
     .step span{color:var(--muted); font-size:14px}
 
-    /* CTA */
+    /* ENQUIRY CTA */
     .cta-bar{
       border:1px solid var(--line);
       border-radius: var(--r);
       padding:18px;
       background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
       display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      transition: transform .25s var(--ease), border-color .25s var(--ease);
+      transform: translateZ(0);
+    }
+    .cta-bar:hover{
+      transform: scale(var(--hoverScaleSm));
+      border-color: rgba(255,255,255,.18);
     }
 
     footer{
@@ -261,14 +350,17 @@
       font-size:13px;
     }
 
-    /* REVEAL */
+    /* REVEAL (subtle) */
     .reveal{
       opacity:0;
-      transform: translateY(14px);
-      transition: opacity .7s ease, transform .7s ease;
+      transform: translateY(12px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
       will-change: opacity, transform;
     }
-    .reveal.in{opacity:1; transform: translateY(0);}
+    .reveal.in{
+      opacity:1;
+      transform: translateY(0);
+    }
 
     /* LIGHTBOX */
     .lightbox{
@@ -288,6 +380,7 @@
       backdrop-filter: blur(10px);
       overflow:hidden;
       box-shadow: var(--shadow);
+      transform: translateZ(0);
     }
     .lightbox-top{
       display:flex; justify-content:space-between; align-items:center; gap:12px;
@@ -303,8 +396,10 @@
       border-radius: 12px;
       padding:8px 10px;
       cursor:pointer;
+      transition: transform .2s var(--ease), background .2s var(--ease);
+      transform: translateZ(0);
     }
-    .x:hover{background: rgba(255,255,255,.10)}
+    .x:hover{background: rgba(255,255,255,.10); transform: scale(var(--hoverScaleSm));}
     .lightbox-img{
       width:100%;
       max-height: 74vh;
@@ -313,19 +408,19 @@
       display:block;
     }
 
+    /* MOBILE */
     @media (max-width: 980px){
       .hero{grid-template-columns: 1fr}
       h1{font-size:42px}
-      .story{grid-template-columns: 1fr}
-      .sticky{position:relative; top:auto}
-      .work{grid-column: span 12;}
-      .span-6,.span-5,.span-7,.span-4{grid-column: span 12;}
       .hero-visual{min-height:360px}
 
-      /* keep nav links visible on mobile */
+      .story{grid-template-columns: 1fr}
+      .sticky{position:relative; top:auto}
+
+      .grid .span-7, .grid .span-5, .grid .span-4{grid-column: span 12;}
+
+      /* keep nav links visible + scrollable */
       .nav-links{
-        display:flex;
-        gap:8px;
         overflow:auto;
         white-space:nowrap;
         max-width:55vw;
@@ -339,10 +434,10 @@
 <body>
   <div class="nav">
     <div class="wrap nav-inner">
-     <div class="brand">
-  <div class="logo">W</div>
-  <div class="brand-name">Wallmakers</div>
-</div>
+      <a class="brand" href="#">
+        <div class="logo">W</div>
+        <div class="brand-name">Wallmakers</div>
+      </a>
 
       <nav class="nav-links" aria-label="Primary">
         <a href="#works">Works</a>
@@ -354,12 +449,12 @@
     </div>
   </div>
 
-  <header class="wrap">
+  <header class="wrap" id="top">
     <div class="hero">
       <div class="reveal">
         <div class="kicker">Custom Wall Art • Greater Toronto Area</div>
-        <h1>The Art that transforms spaces.</h1>
-        <p class="lead">Wallmakers creates bespoke murals and feature walls for homes, cafés, restaurants, and offices across the GTA—designed for your space and finished to a premium standard.</p>
+        <h1>The art that transforms spaces.</h1>
+        <p class="lead">Custom wall art for residential and commercial spaces across the GTA.</p>
 
         <div class="cta">
           <a class="btn primary" href="#works">Explore Works</a>
@@ -382,7 +477,7 @@
     </div>
   </header>
 
-  <div class="wrap"><div class="line"></div></div>
+  <div class="wrap"><div class="divider"></div></div>
 
   <section id="works" class="wrap">
     <div class="section-head reveal">
@@ -390,34 +485,41 @@
       <p>Click any piece to view full-screen.</p>
     </div>
 
+    <!-- Replace these with your real photos later:
+         assets/works/residential-1.jpg etc. -->
     <div class="grid">
       <div class="work span-7 reveal" data-title="Residential • Statement wall"
            data-src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=2000&q=80">
-        <img alt="Residential statement wall" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1400&q=80">
+        <img loading="lazy" alt="Residential statement wall"
+             src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1400&q=80">
         <div class="cap">Residential • Statement wall</div>
       </div>
 
       <div class="work span-5 reveal" data-title="Commercial • Café / restaurant"
            data-src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=2000&q=80">
-        <img alt="Cafe mural" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=80">
-        <div class="cap">Commercial • Café / restaurant</div>
+        <img loading="lazy" alt="Cafe mural"
+             src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=80">
+        <div class="cap">Commercial • Café mural</div>
       </div>
 
       <div class="work span-4 reveal" data-title="Office • Brand-forward"
            data-src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=2000&q=80">
-        <img alt="Office wall art" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1400&q=80">
+        <img loading="lazy" alt="Office wall art"
+             src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1400&q=80">
         <div class="cap">Office • Brand-forward</div>
       </div>
 
-    <div class="work span-4 reveal" data-title="Minimal • Luxury aesthetic"
-     data-src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=2000&q=80">
-  <img alt="Minimal interior" loading="lazy"
-       src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=1400&q=80">
-  <div class="cap">Minimal • Luxury aesthetic</div>
-</div>
+      <div class="work span-4 reveal" data-title="Minimal • Luxury aesthetic"
+           data-src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=2000&q=80">
+        <img loading="lazy" alt="Minimal luxury interior"
+             src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=1400&q=80">
+        <div class="cap">Minimal • Luxury aesthetic</div>
+      </div>
+
       <div class="work span-4 reveal" data-title="Texture • Premium finish"
            data-src="https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?auto=format&fit=crop&w=2000&q=80">
-        <img alt="Texture wall" src="https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?auto=format&fit=crop&w=1400&q=80">
+        <img loading="lazy" alt="Textured wall finish"
+             src="https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?auto=format&fit=crop&w=1400&q=80">
         <div class="cap">Texture • Premium finish</div>
       </div>
     </div>
@@ -426,11 +528,12 @@
   <section id="process" class="wrap">
     <div class="section-head reveal">
       <h2>Process</h2>
+      <p>Clear steps. Premium finish. No surprises.</p>
     </div>
 
     <div class="story">
       <div class="sticky reveal">
-        <div class="big">From concept → premium finish</div>
+        <p class="big">From concept → premium finish</p>
       </div>
 
       <div class="steps">
@@ -479,16 +582,18 @@
       <img class="lightbox-img" id="lightboxImg" alt="Full-size preview" src="" />
     </div>
   </div>
-// Always open at top unless a #hash is in the URL (e.g., #contact)
-if (!window.location.hash) {
-  window.history.scrollRestoration = "manual";
-  window.scrollTo(0, 0);
-}
+
   <script>
+    // Always open at top unless a #hash is in the URL (e.g. #process)
+    if (!window.location.hash) {
+      window.history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+    }
+
     // Year
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Reveal on scroll
+    // Reveal on scroll (subtle)
     const revealEls = document.querySelectorAll(".reveal");
     const io = new IntersectionObserver((entries) => {
       for (const e of entries) {
@@ -497,36 +602,31 @@ if (!window.location.hash) {
     }, { threshold: 0.12 });
     revealEls.forEach(el => io.observe(el));
 
-   // Active nav highlight (viewport-based, reliable)
-const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
-const sections = navLinks
-  .map(a => document.querySelector(a.getAttribute("href")))
-  .filter(Boolean);
+    // ScrollSpy nav highlight (reliable)
+    const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
+    const sections = navLinks
+      .map(a => document.querySelector(a.getAttribute("href")))
+      .filter(Boolean);
 
-function setActiveLink() {
-  const markerY = 140; // below sticky nav
-  let currentId = sections[0]?.id || "";
+    function setActiveLink() {
+      const nav = document.querySelector(".nav");
+      const navH = nav ? nav.offsetHeight : 74;
+      const pos = window.scrollY + navH + 24; // marker below navbar
 
-  for (const s of sections) {
-    const r = s.getBoundingClientRect();
-    // if the section occupies the marker line, it's active
-    if (r.top <= markerY && r.bottom > markerY) {
-      currentId = s.id;
-      break;
+      let current = sections[0]?.id || "";
+      for (const s of sections) {
+        if (s.offsetTop <= pos) current = s.id;
+      }
+      navLinks.forEach(a => {
+        a.classList.toggle("active", a.getAttribute("href") === "#" + current);
+      });
     }
-    // otherwise pick the last section that has passed the marker
-    if (r.top <= markerY) currentId = s.id;
-  }
 
-  navLinks.forEach(a => {
-    a.classList.toggle("active", a.getAttribute("href") === "#" + currentId);
-  });
-}
+    window.addEventListener("scroll", () => requestAnimationFrame(setActiveLink), { passive: true });
+    window.addEventListener("resize", setActiveLink);
+    window.addEventListener("load", setActiveLink);
+    window.addEventListener("hashchange", setActiveLink);
 
-window.addEventListener("scroll", () => requestAnimationFrame(setActiveLink), { passive: true });
-window.addEventListener("resize", setActiveLink);
-window.addEventListener("load", setActiveLink);
-window.addEventListener("hashchange", setActiveLink);
     // Lightbox
     const lb = document.getElementById("lightbox");
     const lbImg = document.getElementById("lightboxImg");
