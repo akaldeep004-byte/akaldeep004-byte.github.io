@@ -541,9 +541,3 @@ if (!window.location.hash) {
   </script>
 </body>
 </html>
-// Fallback if any image URL fails
-document.querySelectorAll("img").forEach(img => {
-  img.addEventListener("error", () => {
-    img.src = "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1400&q=80";
-  }, { once: true });
-});
