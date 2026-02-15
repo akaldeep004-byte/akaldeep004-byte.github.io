@@ -102,6 +102,14 @@
       transform: scale(var(--hoverScaleSm));
       background: rgba(255,255,255,.04);
     }
+    /* Strong active state (wins over hover) */
+.nav-links a.active{
+  background:#fff !important;
+  color:#0a0a0b !important;
+  border-color: transparent !important;
+  font-weight: 700;
+  transform: none !important;
+}
     .nav-links a.active{
   color:#0a0a0b;
   background:#fff;
@@ -482,7 +490,7 @@ section{
 
   <div class="wrap"><div class="divider"></div></div>
 
-  <section id="works" class="wrap">
+  <section id="works" <div class="spy" data-spy="works"></div>
     <div class="section-head reveal">
       <h2>Selected Works</h2>
       <p>Click any piece to view full-screen.</p>
@@ -528,7 +536,7 @@ section{
     </div>
   </section>
 
-  <section id="process" class="wrap">
+  <section id="process" <div class="spy" data-spy="process"></div>
     <div class="section-head reveal">
       <h2>Process</h2>
       <p>Clear steps. Premium finish. No surprises.</p>
@@ -556,7 +564,7 @@ section{
     </div>
   </section>
 
-  <section id="contact" class="wrap">
+  <section id="contact" <div class="spy" data-spy="contact"></div>
     <div class="cta-bar reveal">
       <div>
         <div class="kicker">Enquiry</div>
@@ -568,6 +576,12 @@ section{
       <a class="btn primary" href="#contact">Add Enquiry Form (Next)</a>
     </div>
   </section>
+  /* scrollspy markers */
+.spy{
+  position: relative;
+  top: -100px;   /* offset for sticky nav */
+  height: 1px;
+}
 
   <footer>
     <div class="wrap">
@@ -631,59 +645,43 @@ section{
     revealEls.forEach(el => io.observe(el));
   });
 
-  // ---- ScrollSpy nav highlight (viewport marker, reliable) ----
-  document.addEventListener("DOMContentLoaded", () => {
-    const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
-    const sections = navLinks
-      .map(a => document.querySelector(a.getAttribute("href")))
-      .filter(Boolean);
+  // ScrollSpy nav highlight (IntersectionObserver markers — smooth, no jitter)
+document.addEventListener("DOMContentLoaded", () => {
+  const links = Array.from(document.querySelectorAll(".nav-links a"));
+  const markers = Array.from(document.querySelectorAll(".spy[data-spy]"));
 
-    if (!navLinks.length || !sections.length) {
-      dbg.textContent = "ScrollSpy: missing links/sections";
-      return;
+  if (!links.length || !markers.length) return;
+
+  function activate(id){
+    links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
+  }
+
+  // Default
+  activate("works");
+
+  const io = new IntersectionObserver((entries) => {
+    // when multiple are visible, pick the one nearest the top (most recent)
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+    if (visible.length) {
+      activate(visible[0].target.dataset.spy);
     }
-
-    function activate(id) {
-      navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
-      dbg.textContent = "Active: #" + id;
-    }
-
-    function setActiveLink() {
-      const marker = Math.floor(window.innerHeight * 0.35);
-      let current = sections[0].id;
-
-      for (const s of sections) {
-        const r = s.getBoundingClientRect();
-        if (r.top <= marker && r.bottom > marker) {
-          current = s.id;
-          break;
-        }
-      }
-      activate(current);
-    }
-
-    let ticking = false;
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(() => {
-          setActiveLink();
-          ticking = false;
-        });
-      }
-    }, { passive: true });
-
-    window.addEventListener("resize", setActiveLink);
-    window.addEventListener("hashchange", setActiveLink);
-    window.addEventListener("load", setActiveLink);
-
-    navLinks.forEach(a => a.addEventListener("click", () => {
-      activate(a.getAttribute("href").slice(1));
-    }));
-
-    setActiveLink();
+  }, {
+    root: null,
+    threshold: 0,
+    // treat a marker as "active" when it reaches near top area
+    rootMargin: "-80px 0px -70% 0px"
   });
 
+  markers.forEach(m => io.observe(m));
+
+  // Also set active immediately on click (instant feedback)
+  links.forEach(a => a.addEventListener("click", () => {
+    activate(a.getAttribute("href").slice(1));
+  }));
+});
   // ---- Lightbox ----
   document.addEventListener("DOMContentLoaded", () => {
     const lb = document.getElementById("lightbox");
