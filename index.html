@@ -102,11 +102,11 @@
       transform: scale(var(--hoverScaleSm));
       background: rgba(255,255,255,.04);
     }
-.nav-links a.active{
-  color: #0a0a0b;
-  background: #ffffff;
-  border-color: transparent;
-  font-weight: 700;
+    .nav-links a.active{
+  color:#0a0a0b;
+  background:#fff;
+  border-color:transparent;
+  font-weight:700;
 }
 
     .btn{
@@ -586,75 +586,111 @@ section{
     </div>
   </div>
 
-  <script>
-    // Always open at top unless a #hash is in the URL (e.g. #process)
-    if (!window.location.hash) {
+ <script>
+  // ---- Debug badge (shows active section + JS errors) ----
+  const dbg = document.createElement("div");
+  dbg.style.cssText = `
+    position:fixed; left:12px; bottom:12px; z-index:9999;
+    padding:8px 10px; border-radius:12px;
+    border:1px solid rgba(255,255,255,.18);
+    background: rgba(10,10,11,.60);
+    backdrop-filter: blur(10px);
+    color: rgba(255,255,255,.85);
+    font: 12px/1.2 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  `;
+  dbg.textContent = "JS: loaded";
+  document.addEventListener("DOMContentLoaded", () => document.body.appendChild(dbg));
+
+  window.addEventListener("error", (e) => {
+    dbg.textContent = "JS ERROR: " + (e.message || "unknown");
+  });
+
+  // ---- Always open at top unless URL has #hash ----
+  if (!window.location.hash) {
+    try {
       window.history.scrollRestoration = "manual";
       window.scrollTo(0, 0);
-    }
+    } catch {}
+  }
 
-    // Year
-    document.getElementById("y").textContent = new Date().getFullYear();
+  // ---- Year ----
+  document.addEventListener("DOMContentLoaded", () => {
+    const y = document.getElementById("y");
+    if (y) y.textContent = new Date().getFullYear();
+  });
 
-    // Reveal on scroll (subtle)
+  // ---- Reveal on scroll (subtle) ----
+  document.addEventListener("DOMContentLoaded", () => {
     const revealEls = document.querySelectorAll(".reveal");
+    if (!revealEls.length) return;
+
     const io = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) e.target.classList.add("in");
-      }
+      for (const e of entries) if (e.isIntersecting) e.target.classList.add("in");
     }, { threshold: 0.12 });
+
     revealEls.forEach(el => io.observe(el));
+  });
 
- // ScrollSpy nav highlight (viewport marker) + DEBUG
-const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
-const sections = navLinks
-  .map(a => document.querySelector(a.getAttribute("href")))
-  .filter(Boolean);
+  // ---- ScrollSpy nav highlight (viewport marker, reliable) ----
+  document.addEventListener("DOMContentLoaded", () => {
+    const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
+    const sections = navLinks
+      .map(a => document.querySelector(a.getAttribute("href")))
+      .filter(Boolean);
 
-function activate(id) {
-  navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
-  // DEBUG: show which section is active in the browser tab title
-  document.title = "Wallmakers • " + id.toUpperCase();
-}
-
-function setActiveLink() {
-  const marker = Math.floor(window.innerHeight * 0.35);
-  let current = sections[0]?.id || "";
-
-  for (const s of sections) {
-    const r = s.getBoundingClientRect();
-    if (r.top <= marker && r.bottom > marker) {
-      current = s.id;
-      break;
+    if (!navLinks.length || !sections.length) {
+      dbg.textContent = "ScrollSpy: missing links/sections";
+      return;
     }
-  }
-  activate(current);
-}
 
-let ticking = false;
-window.addEventListener("scroll", () => {
-  if (!ticking) {
-    ticking = true;
-    requestAnimationFrame(() => {
-      setActiveLink();
-      ticking = false;
-    });
-  }
-}, { passive: true });
+    function activate(id) {
+      navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
+      dbg.textContent = "Active: #" + id;
+    }
 
-window.addEventListener("load", setActiveLink);
-window.addEventListener("resize", setActiveLink);
-window.addEventListener("hashchange", setActiveLink);
+    function setActiveLink() {
+      const marker = Math.floor(window.innerHeight * 0.35);
+      let current = sections[0].id;
 
-navLinks.forEach(a => a.addEventListener("click", () => {
-  activate(a.getAttribute("href").slice(1));
-}));
+      for (const s of sections) {
+        const r = s.getBoundingClientRect();
+        if (r.top <= marker && r.bottom > marker) {
+          current = s.id;
+          break;
+        }
+      }
+      activate(current);
+    }
 
-    // Lightbox
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          setActiveLink();
+          ticking = false;
+        });
+      }
+    }, { passive: true });
+
+    window.addEventListener("resize", setActiveLink);
+    window.addEventListener("hashchange", setActiveLink);
+    window.addEventListener("load", setActiveLink);
+
+    navLinks.forEach(a => a.addEventListener("click", () => {
+      activate(a.getAttribute("href").slice(1));
+    }));
+
+    setActiveLink();
+  });
+
+  // ---- Lightbox ----
+  document.addEventListener("DOMContentLoaded", () => {
     const lb = document.getElementById("lightbox");
     const lbImg = document.getElementById("lightboxImg");
     const lbTitle = document.getElementById("lightboxTitle");
     const lbClose = document.getElementById("lightboxClose");
+    if (!lb || !lbImg || !lbTitle || !lbClose) return;
 
     function openLightbox(src, title){
       lbImg.src = src;
@@ -681,6 +717,7 @@ navLinks.forEach(a => a.addEventListener("click", () => {
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeLightbox();
     });
-  </script>
+  });
+</script>
 </body>
 </html>
