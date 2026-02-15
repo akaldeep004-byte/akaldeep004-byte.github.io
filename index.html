@@ -3,190 +3,245 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Wallmakers | Custom Wall Art in GTA</title>
-  <meta name="description" content="Wallmakers creates custom wall art and murals for residential and commercial spaces across the Greater Toronto Area (GTA). Premium, minimal, luxury finish." />
+  <title>Wallmakers | Luxury Custom Wall Art in GTA</title>
+  <meta name="description" content="Wallmakers creates minimal, luxury custom wall art for residential and commercial spaces across the GTA. Murals, feature walls, and premium finishes." />
 
   <style>
     :root{
-      --bg:#0b0b0c;
-      --panel:#111114;
-      --text:#f5f5f5;
-      --muted:#b8b8b8;
-      --line: rgba(255,255,255,.10);
-      --accent:#ffffff;
-      --max:1100px;
-      --radius:18px;
+      --bg:#0a0a0b;
+      --panel:#101013;
+      --text:#f3f3f3;
+      --muted:#b6b6b6;
+      --line:rgba(255,255,255,.10);
+      --shadow: 0 20px 80px rgba(0,0,0,.55);
+      --max:1120px;
+      --r:18px;
     }
+
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1200px 600px at 70% -10%, rgba(255,255,255,.08), transparent 60%),
-                  radial-gradient(900px 500px at 10% 10%, rgba(255,255,255,.06), transparent 55%),
-                  var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--text);
-      line-height:1.5;
+      background:
+        radial-gradient(1200px 700px at 70% -10%, rgba(255,255,255,.10), transparent 60%),
+        radial-gradient(900px 500px at 10% 10%, rgba(255,255,255,.07), transparent 55%),
+        var(--bg);
+      line-height:1.55;
     }
     a{color:inherit; text-decoration:none}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 20px}
+    .line{border-top:1px solid var(--line)}
+
+    /* NAV */
     .nav{
-      position:sticky; top:0; z-index:10;
+      position:sticky; top:0; z-index:50;
       backdrop-filter: blur(10px);
-      background: rgba(11,11,12,.65);
+      background: rgba(10,10,11,.72);
       border-bottom:1px solid var(--line);
     }
     .nav-inner{
-      height:70px; display:flex; align-items:center; justify-content:space-between;
+      height:72px;
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
     }
     .brand{
       display:flex; align-items:center; gap:10px;
-      letter-spacing:.3px;
-      font-weight:650;
+      font-weight:700; letter-spacing:.2px;
     }
     .logo{
       width:34px; height:34px; border-radius:10px;
-      border:1px solid var(--line);
       display:grid; place-items:center;
+      border:1px solid var(--line);
       background: rgba(255,255,255,.04);
-      font-weight:700;
+      font-weight:800;
     }
-    .nav-links{display:flex; gap:18px; font-size:14px; color:var(--muted)}
+    .nav-links{
+      display:flex; gap:18px; font-size:14px; color:var(--muted);
+    }
+    .nav-links a{padding:8px 10px; border-radius:999px}
     .nav-links a:hover{color:var(--text)}
+    .nav-links a.active{
+      color:var(--text);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+    }
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       padding:10px 14px; border-radius:999px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.06);
-      color:var(--text);
       font-size:14px;
     }
     .btn:hover{background: rgba(255,255,255,.10)}
     .btn.primary{
-      background: var(--accent);
-      color:#0b0b0c;
-      border-color: transparent;
-      font-weight:650;
+      background: #fff; color:#0a0a0b; border-color:transparent;
+      font-weight:700;
     }
-    .btn.primary:hover{filter:brightness(.95)}
+    .btn.primary:hover{filter:brightness(.96)}
+
+    /* HERO */
+    header{padding:74px 0 24px}
     .hero{
-      padding:72px 0 34px;
-    }
-    .hero-grid{
       display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:28px;
+      grid-template-columns: 1.05fr .95fr;
+      gap:22px;
       align-items:stretch;
     }
-    .kicker{color:var(--muted); font-size:14px; letter-spacing:.12em; text-transform:uppercase}
+    .kicker{
+      color:var(--muted);
+      font-size:13px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
     h1{
-      margin:12px 0 14px;
-      font-size:52px;
-      line-height:1.05;
+      margin:14px 0 12px;
+      font-size:54px;
+      line-height:1.03;
       letter-spacing:-.02em;
     }
-    .lead{color:var(--muted); font-size:18px; max-width:46ch}
-    .cta-row{display:flex; gap:12px; margin-top:22px; flex-wrap:wrap}
-    .meta{
-      margin-top:18px;
+    .lead{
       color:var(--muted);
-      font-size:14px;
-      display:flex; gap:14px; flex-wrap:wrap;
+      font-size:18px;
+      max-width:52ch;
+      margin:0;
     }
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:22px}
+    .pills{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
     .pill{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
       padding:8px 12px;
       border-radius:999px;
-    }
-    .hero-card{
       border:1px solid var(--line);
-      border-radius: var(--radius);
-      overflow:hidden;
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      min-height: 420px;
-      position:relative;
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:13px;
     }
-    .hero-card::before{
+
+    .hero-visual{
+      border-radius:var(--r);
+      border:1px solid var(--line);
+      overflow:hidden;
+      background: rgba(255,255,255,.03);
+      position:relative;
+      min-height: 420px;
+      box-shadow: var(--shadow);
+    }
+    .hero-visual::before{
       content:"";
       position:absolute; inset:0;
       background:
-        radial-gradient(900px 380px at 60% 30%, rgba(255,255,255,.14), transparent 60%),
-        url("https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1600&q=80");
-      background-size: cover;
+        linear-gradient(180deg, rgba(10,10,11,.12), rgba(10,10,11,.72)),
+        url("https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1800&q=80");
+      background-size:cover;
       background-position:center;
-      filter: saturate(.9) contrast(1.05);
-      opacity:.70;
+      opacity:.9;
+      transform: scale(1.03);
     }
-    .hero-card::after{
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(11,11,12,.10), rgba(11,11,12,.75));
-    }
-    .hero-card-content{
-      position:absolute; inset:auto 18px 18px 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(11,11,12,.55);
+    .hero-visual .badge{
+      position:absolute; left:16px; bottom:16px; right:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(10,10,11,.55);
       backdrop-filter: blur(10px);
       border-radius: 14px;
-      padding:14px 14px;
+      padding:12px 12px;
+      display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      color:var(--muted);
+      font-size:13px;
     }
-    .hero-card-content .title{font-weight:650}
-    .hero-card-content .sub{color:var(--muted); font-size:13px; margin-top:4px}
+    .hero-visual .badge b{color:var(--text)}
 
-    section{padding:34px 0}
-    .section-title{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:14px;
+    /* SECTIONS */
+    section{padding:48px 0}
+    .section-head{
+      display:flex; justify-content:space-between; align-items:flex-end; gap:16px;
       margin-bottom:14px;
     }
-    .section-title h2{margin:0; font-size:22px; letter-spacing:-.01em}
-    .section-title p{margin:0; color:var(--muted); font-size:14px}
+    .section-head h2{margin:0; font-size:22px; letter-spacing:-.01em}
+    .section-head p{margin:0; color:var(--muted); font-size:14px; max-width:60ch}
 
-    .grid-3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
+    .cards{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
     .card{
       border:1px solid var(--line);
       background: rgba(255,255,255,.03);
-      border-radius: var(--radius);
+      border-radius: var(--r);
       padding:16px;
     }
     .card h3{margin:0 0 6px; font-size:16px}
     .card p{margin:0; color:var(--muted); font-size:14px}
 
-    .portfolio{
+    /* PORTFOLIO GRID + LIGHTBOX */
+    .grid{
       display:grid;
       grid-template-columns: repeat(12, 1fr);
       gap:12px;
     }
-    .shot{
+    .work{
+      grid-column: span 4;
       border-radius: 18px;
       border:1px solid var(--line);
       overflow:hidden;
       background: rgba(255,255,255,.03);
       position:relative;
-      min-height: 210px;
+      min-height: 230px;
+      cursor:pointer;
+      transition: transform .25s ease, background .25s ease;
     }
-    .shot img{width:100%; height:100%; object-fit:cover; display:block; opacity:.85}
-    .shot .cap{
-      position:absolute; inset:auto 12px 12px 12px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(11,11,12,.55);
+    .work:hover{transform: translateY(-2px); background: rgba(255,255,255,.05)}
+    .work img{width:100%; height:100%; object-fit:cover; display:block; opacity:.9}
+    .work .cap{
+      position:absolute; left:12px; right:12px; bottom:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(10,10,11,.55);
       backdrop-filter: blur(10px);
       border-radius: 12px;
       padding:10px 10px;
       font-size:13px;
       color:var(--muted);
     }
-    .span-7{grid-column: span 7;}
+    .span-6{grid-column: span 6;}
+    .span-3{grid-column: span 3;}
     .span-5{grid-column: span 5;}
-    .span-4{grid-column: span 4;}
+    .span-7{grid-column: span 7;}
 
-    .cta{
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      padding:20px;
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      display:flex; align-items:center; justify-content:space-between; gap:16px;
-      flex-wrap:wrap;
+    /* SCROLL STORY / PROCESS */
+    .story{
+      display:grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap:16px;
+      align-items:start;
     }
+    .sticky{
+      position: sticky;
+      top: 92px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--r);
+      padding:16px;
+    }
+    .sticky .big{
+      font-size:20px;
+      font-weight:750;
+      letter-spacing:-.01em;
+      margin:6px 0 10px;
+    }
+    .steps{display:grid; gap:10px}
+    .step{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: 14px;
+      padding:12px;
+    }
+    .step b{display:block; margin-bottom:4px}
+    .step span{color:var(--muted); font-size:14px}
+
+    .cta-bar{
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      padding:18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    }
+
     footer{
       padding:26px 0 40px;
       border-top:1px solid var(--line);
@@ -194,13 +249,71 @@
       font-size:13px;
     }
 
-    @media (max-width: 900px){
-      .hero-grid{grid-template-columns: 1fr}
+    /* REVEAL ANIMATIONS */
+    .reveal{
+      opacity:0;
+      transform: translateY(14px);
+      transition: opacity .7s ease, transform .7s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.in{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* LIGHTBOX */
+    .lightbox{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.75);
+      display:none;
+      align-items:center; justify-content:center;
+      z-index:999;
+      padding:18px;
+    }
+    .lightbox.open{display:flex}
+    .lightbox-inner{
+      width:min(1100px, 100%);
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(10,10,11,.55);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    .lightbox-top{
+      display:flex; justify-content:space-between; align-items:center; gap:12px;
+      padding:10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .x{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      border-radius: 12px;
+      padding:8px 10px;
+      cursor:pointer;
+    }
+    .x:hover{background: rgba(255,255,255,.10)}
+    .lightbox-img{
+      width:100%;
+      max-height: 74vh;
+      object-fit: contain;
+      background: rgba(0,0,0,.25);
+      display:block;
+    }
+
+    @media (max-width: 980px){
+      .hero{grid-template-columns: 1fr}
       h1{font-size:42px}
-      .grid-3{grid-template-columns: 1fr}
-      .span-7,.span-5,.span-4{grid-column: span 12;}
-      .hero-card{min-height:360px}
+      .cards{grid-template-columns: 1fr}
+      .story{grid-template-columns: 1fr}
+      .sticky{position:relative; top:auto}
       .nav-links{display:none}
+      .work{grid-column: span 12;}
+      .span-6,.span-3,.span-5,.span-7{grid-column: span 12;}
+      .hero-visual{min-height:360px}
     }
   </style>
 </head>
@@ -212,146 +325,157 @@
         <div class="logo">W</div>
         <div>Wallmakers</div>
       </div>
-
-      <div class="nav-links">
+      <nav class="nav-links" aria-label="Primary">
         <a href="#services">Services</a>
-        <a href="#portfolio">Portfolio</a>
+        <a href="#works">Works</a>
         <a href="#process">Process</a>
-        <a href="#contact">Contact</a>
-      </div>
-
+        <a href="#contact">Enquiry</a>
+      </nav>
       <a class="btn" href="#contact">Enquire</a>
     </div>
   </div>
 
-  <header class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <div class="kicker">Custom Wall Art • GTA</div>
-        <h1>Minimal, luxury wall art for residential & commercial spaces.</h1>
+  <header class="wrap">
+    <div class="hero">
+      <div class="reveal">
+        <div class="kicker">Custom Wall Art • Greater Toronto Area</div>
+        <h1>Minimal, luxury wall art that transforms spaces.</h1>
         <p class="lead">
-          Wallmakers designs and delivers bespoke murals and wall features for homes, cafés, restaurants, and offices across the Greater Toronto Area.
+          Wallmakers creates bespoke murals and feature walls for homes, cafés, restaurants, and offices across the GTA—designed for your space and finished to a premium standard.
         </p>
-
-        <div class="cta-row">
-          <a class="btn primary" href="#portfolio">View Portfolio</a>
+        <div class="cta">
+          <a class="btn primary" href="#works">Explore Works</a>
           <a class="btn" href="#contact">Request a Quote</a>
         </div>
-
-        <div class="meta">
-          <div class="pill">Residential</div>
-          <div class="pill">Cafés & Restaurants</div>
-          <div class="pill">Offices</div>
-          <div class="pill">GTA Service</div>
+        <div class="pills" aria-label="Focus areas">
+          <span class="pill">Residential</span>
+          <span class="pill">Cafés & Restaurants</span>
+          <span class="pill">Offices</span>
+          <span class="pill">GTA Service</span>
         </div>
       </div>
 
-      <div class="hero-card" aria-label="Featured project image">
-        <div class="hero-card-content">
-          <div class="title">Featured Work</div>
-          <div class="sub">Premium finish • clean lines • curated palettes</div>
+      <div class="hero-visual reveal" aria-label="Featured project">
+        <div class="badge">
+          <div><b>Signature finish</b><br/>Clean lines • curated palettes</div>
+          <div><b>Designed to fit</b><br/>Your interior • your brand</div>
         </div>
       </div>
     </div>
   </header>
 
-  <section id="services">
-    <div class="wrap">
-      <div class="section-title">
-        <h2>Services</h2>
-        <p>Designed to match your space, brand, and budget.</p>
+  <div class="wrap"><div class="line"></div></div>
+
+  <section id="services" class="wrap">
+    <div class="section-head reveal">
+      <h2>Services</h2>
+      <p>High-end wall art, delivered with a clean, professional process.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal">
+        <h3>Residential Wall Art</h3>
+        <p>Accent walls, bedrooms, living rooms, stairways—custom concepts tailored to your interiors.</p>
+      </div>
+      <div class="card reveal">
+        <h3>Commercial Murals</h3>
+        <p>Cafés, restaurants, studios, offices—brand-aligned work that elevates customer experience.</p>
+      </div>
+      <div class="card reveal">
+        <h3>Design + Execution</h3>
+        <p>Concept, mockups, palette selection, on-site prep, installation, and premium finishing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="works" class="wrap">
+    <div class="section-head reveal">
+      <h2>Selected Works</h2>
+      <p>Click any piece to view full-screen. Next step: we’ll swap these placeholders with your real photos.</p>
+    </div>
+
+    <div class="grid">
+      <div class="work span-7 reveal" data-title="Residential • Statement wall"
+           data-src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=2000&q=80">
+        <img alt="Residential statement wall" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1400&q=80">
+        <div class="cap">Residential • Statement wall</div>
       </div>
 
-      <div class="grid-3">
-        <div class="card">
-          <h3>Residential Wall Art</h3>
-          <p>Accent walls, bedrooms, living rooms, stairways — custom concepts tailored to your interiors.</p>
+      <div class="work span-5 reveal" data-title="Commercial • Café / restaurant"
+           data-src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=2000&q=80">
+        <img alt="Cafe mural" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=80">
+        <div class="cap">Commercial • Café / restaurant</div>
+      </div>
+
+      <div class="work span-4 reveal" data-title="Office • Brand-forward"
+           data-src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=2000&q=80">
+        <img alt="Office wall art" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1400&q=80">
+        <div class="cap">Office • Brand-forward</div>
+      </div>
+
+      <div class="work span-4 reveal" data-title="Minimal • Luxury aesthetic"
+           data-src="https://images.unsplash.com/photo-1527708676371-14f9a9503c6b?auto=format&fit=crop&w=2000&q=80">
+        <img alt="Minimal interior" src="https://images.unsplash.com/photo-1527708676371-14f9a9503c6b?auto=format&fit=crop&w=1400&q=80">
+        <div class="cap">Minimal • Luxury aesthetic</div>
+      </div>
+
+      <div class="work span-4 reveal" data-title="Texture • Premium finish"
+           data-src="https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?auto=format&fit=crop&w=2000&q=80">
+        <img alt="Texture wall" src="https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?auto=format&fit=crop&w=1400&q=80">
+        <div class="cap">Texture • Premium finish</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process" class="wrap">
+    <div class="section-head reveal">
+      <h2>Process</h2>
+      <p>A scroll-story breakdown of how Wallmakers takes a project from idea to premium finish.</p>
+    </div>
+
+    <div class="story">
+      <div class="sticky reveal">
+        <div class="kicker">Project flow</div>
+        <div class="big">From blank wall → signature space</div>
+        <p style="margin:0; color:var(--muted); font-size:14px;">
+          Clear steps. No surprises. Designed for residential and commercial timelines.
+        </p>
+      </div>
+
+      <div class="steps">
+        <div class="step reveal">
+          <b>1) Enquiry & Space Details</b>
+          <span>Photos, measurements, surface type, inspiration, timeline, and location (GTA).</span>
         </div>
-        <div class="card">
-          <h3>Commercial Murals</h3>
-          <p>Cafés, restaurants, studios, offices — brand-aligned work that elevates customer experience.</p>
+        <div class="step reveal">
+          <b>2) Concept & Mockups</b>
+          <span>We propose directions, create mockups, and confirm the minimal/luxury look.</span>
         </div>
-        <div class="card">
-          <h3>Design + Execution</h3>
-          <p>Concept, mockups, palette selection, on-site prep, installation, and finishing.</p>
+        <div class="step reveal">
+          <b>3) Quote & Scheduling</b>
+          <span>Clear scope, materials, and timeline. We book the slot and prepare the plan.</span>
+        </div>
+        <div class="step reveal">
+          <b>4) Prep & Execution</b>
+          <span>Surface prep, layout, and careful application—clean lines and crisp edges.</span>
+        </div>
+        <div class="step reveal">
+          <b>5) Finishing & Handover</b>
+          <span>Protective finishes (if needed), cleanup, final walkthrough, and care guidance.</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="portfolio">
-    <div class="wrap">
-      <div class="section-title">
-        <h2>Portfolio</h2>
-        <p>We’ll replace these with your real project photos next.</p>
-      </div>
-
-      <div class="portfolio">
-        <div class="shot span-7">
-          <img alt="Residential wall art example"
-               src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1600&q=80">
-          <div class="cap">Residential • Statement wall</div>
-        </div>
-        <div class="shot span-5">
-          <img alt="Cafe wall mural example"
-               src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=80">
-          <div class="cap">Commercial • Café / restaurant</div>
-        </div>
-        <div class="shot span-4">
-          <img alt="Office wall art example"
-               src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1600&q=80">
-          <div class="cap">Office • Brand-forward</div>
-        </div>
-        <div class="shot span-4">
-          <img alt="Minimal interior wall example"
-               src="https://images.unsplash.com/photo-1527708676371-14f9a9503c6b?auto=format&fit=crop&w=1600&q=80">
-          <div class="cap">Minimal • Luxury aesthetic</div>
-        </div>
-        <div class="shot span-4">
-          <img alt="Texture wall example"
-               src="https://images.unsplash.com/photo-1523755231516-e43fd2e8dca5?auto=format&fit=crop&w=1600&q=80">
-          <div class="cap">Texture • Premium finish</div>
+  <section id="contact" class="wrap">
+    <div class="cta-bar reveal">
+      <div>
+        <div class="kicker">Enquiry</div>
+        <div style="font-size:18px; font-weight:800; margin-top:6px;">Request a quote from Wallmakers (GTA).</div>
+        <div style="color:var(--muted); margin-top:6px; font-size:14px;">
+          Next step: we’ll add your enquiry form here (with the exact fields you want).
         </div>
       </div>
-    </div>
-  </section>
-
-  <section id="process">
-    <div class="wrap">
-      <div class="section-title">
-        <h2>Process</h2>
-        <p>Simple, professional, and predictable.</p>
-      </div>
-
-      <div class="grid-3">
-        <div class="card">
-          <h3>1) Consult</h3>
-          <p>Share your space, inspiration, measurements, and timeline. We align on style + budget.</p>
-        </div>
-        <div class="card">
-          <h3>2) Design</h3>
-          <p>We create mockups and finalize palette and placement before any work begins.</p>
-        </div>
-        <div class="card">
-          <h3>3) Deliver</h3>
-          <p>On-site prep, execution, clean finish, and handover — built to last and photograph beautifully.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="wrap">
-      <div class="cta">
-        <div>
-          <div class="kicker">Ready to transform your space?</div>
-          <div style="font-size:18px; font-weight:650; margin-top:6px;">Get a quote from Wallmakers (GTA).</div>
-          <div style="color:var(--muted); margin-top:6px; font-size:14px;">
-            Next step: we’ll add a professional enquiry form here.
-          </div>
-        </div>
-        <a class="btn primary" href="#contact">Add Enquiry Form (Next)</a>
-      </div>
+      <a class="btn primary" href="#contact">Add Enquiry Form (Next)</a>
     </div>
   </section>
 
@@ -361,8 +485,75 @@
     </div>
   </footer>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-inner" role="dialog" aria-modal="true" aria-label="Image preview">
+      <div class="lightbox-top">
+        <div id="lightboxTitle">Preview</div>
+        <button class="x" id="lightboxClose" type="button">Close</button>
+      </div>
+      <img class="lightbox-img" id="lightboxImg" alt="Full-size preview" src="" />
+    </div>
+  </div>
+
   <script>
+    // Year
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) e.target.classList.add("in");
+      }
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+
+    // Active nav highlight
+    const sections = ["services","works","process","contact"].map(id => document.getElementById(id));
+    const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
+    const sio = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(a => a.classList.remove("active"));
+        const id = entry.target.id;
+        const link = navLinks.find(a => a.getAttribute("href") === "#" + id);
+        if (link) link.classList.add("active");
+      });
+    }, { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 });
+    sections.forEach(s => s && sio.observe(s));
+
+    // Lightbox
+    const lb = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lightboxImg");
+    const lbTitle = document.getElementById("lightboxTitle");
+    const lbClose = document.getElementById("lightboxClose");
+
+    function openLightbox(src, title){
+      lbImg.src = src;
+      lbTitle.textContent = title || "Preview";
+      lb.classList.add("open");
+      lb.setAttribute("aria-hidden", "false");
+    }
+    function closeLightbox(){
+      lb.classList.remove("open");
+      lb.setAttribute("aria-hidden", "true");
+      lbImg.src = "";
+    }
+
+    document.querySelectorAll(".work").forEach(card => {
+      card.addEventListener("click", () => {
+        openLightbox(card.dataset.src, card.dataset.title);
+      });
+    });
+
+    lb.addEventListener("click", (e) => {
+      if (e.target === lb) closeLightbox();
+    });
+    lbClose.addEventListener("click", closeLightbox);
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeLightbox();
+    });
   </script>
 </body>
 </html>
