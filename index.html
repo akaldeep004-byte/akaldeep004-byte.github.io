@@ -86,7 +86,7 @@
       background: rgba(255,255,255,.06);
     }
 
-    /* split nav */
+    /* split nav: left group + right group */
     .nav-links{
       display:flex;
       gap:10px;
@@ -183,103 +183,64 @@
     .hero-content{
       position: relative;
       z-index: 2;
-      max-width: 680px;
+      max-width: 740px;
       padding: 40px 20px;
     }
 
+    .kicker{
+      color: rgba(255,255,255,.74);
+      font-size:13px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      margin-bottom: 10px;
+    }
+
     .hero-content h1{
+      margin: 0 0 12px;
       font-size: 60px;
       font-weight: 600;
       letter-spacing: -0.01em;
       font-family:"Playfair Display", serif;
-      margin: 10px 0 12px;
+      text-shadow: 0 18px 70px rgba(0,0,0,.55);
     }
     .hero-content .lead{
       font-size: 18px;
       color: rgba(255,255,255,.78);
-      margin: 0 0 28px;
+      margin: 0 0 22px;
+      line-height: 1.65;
     }
 
-    /* HERO META */
-    .hero-meta{
-      margin-top: 34px;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-      align-items: center;
-    }
+    .cta{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top: 8px;}
 
+    /* category pills under buttons */
     .hero-categories{
       display:flex;
-      gap: 18px;
-      flex-wrap: wrap;
-      justify-content: center;
-      font-size: 12px;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top: 14px;
       color: rgba(255,255,255,.78);
-      letter-spacing: .16em;
-      text-transform: uppercase;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
     }
-
     .hero-categories span{
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.14);
       background: rgba(10,10,11,.28);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
+      padding: 8px 12px;
+      border-radius: 999px;
       transition: transform .20s var(--ease), background .20s var(--ease), border-color .20s var(--ease);
       transform: translateZ(0);
     }
-
     .hero-categories span:hover{
       transform: scale(var(--scale));
-      background: rgba(10,10,11,.40);
-      border-color: rgba(255,255,255,.18);
-    }
-
-    .hero-features{
-      display:flex;
-      gap: 48px;
-      flex-wrap: wrap;
-      justify-content: center;
-      text-align: left;
-      width: 100%;
-      max-width: 640px;
-    }
-
-    .hero-feature{
-      flex: 1 1 240px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(10,10,11,.32);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      padding: 14px 14px;
-      transition: transform .20s var(--ease), border-color .20s var(--ease), background .20s var(--ease);
-      transform: translateZ(0);
-    }
-
-    .hero-feature:hover{
-      transform: scale(var(--scale));
+      background: rgba(10,10,11,.36);
       border-color: rgba(255,255,255,.20);
-      background: rgba(10,10,11,.42);
-    }
-
-    .hero-feature strong{
-      display:block;
-      font-weight: 750;
-      font-size: 14px;
-      margin-bottom: 4px;
-      letter-spacing: .01em;
-    }
-    .hero-feature p{
-      margin: 0;
-      font-size: 13px;
-      color: rgba(255,255,255,.74);
     }
 
     @media (max-width: 900px){
       .hero-content h1{font-size: 42px;}
-      .hero-features{gap: 12px;}
-      .hero-feature{flex-basis: 100%;}
     }
 
     /* SECTIONS */
@@ -426,7 +387,6 @@
       border-radius: 16px;
       transition: transform .22s var(--ease), border-color .22s var(--ease), background .22s var(--ease);
       transform: translateZ(0);
-      position: relative;
     }
 
     .step-card:hover{
@@ -576,13 +536,11 @@
       </a>
 
       <nav class="nav-links" aria-label="Primary">
-        <!-- LEFT: Works + Process -->
         <div class="nav-group left">
           <a href="#works">Works</a>
           <a href="#process">Process</a>
         </div>
 
-        <!-- RIGHT: Contact (moved to right) -->
         <div class="nav-group right">
           <a href="#contact">Contact</a>
         </div>
@@ -605,24 +563,11 @@
         <a class="btn" href="#contact">Contact</a>
       </div>
 
-      <div class="hero-meta">
-        <div class="hero-categories" aria-label="Project types">
-          <span>Residential</span>
-          <span>Cafés & Restaurants</span>
-          <span>Offices</span>
-        </div>
-
-        <div class="hero-features" aria-label="Signature features">
-          <div class="hero-feature">
-            <strong>Signature finish</strong>
-            <p>Clean lines • curated palettes</p>
-          </div>
-
-          <div class="hero-feature">
-            <strong>Designed to fit</strong>
-            <p>Your interior • your brand</p>
-          </div>
-        </div>
+      <!-- ✅ Keeps ONLY the category pills (the removed boxes are gone) -->
+      <div class="hero-categories" aria-label="Project types">
+        <span>Residential</span>
+        <span>Cafés & Restaurants</span>
+        <span>Offices</span>
       </div>
     </div>
   </header>
@@ -718,10 +663,11 @@
   <section id="contact" class="wrap">
     <div class="section-head">
       <h2>Contact</h2>
-      <p>Reach out — we respond quickly in GTA hours.</p>
+      <p>Fastest way to reach us for residential & commercial projects in the GTA.</p>
     </div>
 
     <div class="contact-grid">
+      <!-- Instagram -->
       <div class="contact-card">
         <div class="c-top">
           <div class="icon" aria-hidden="true">
@@ -740,6 +686,7 @@
         <a class="btn" href="https://instagram.com/wallmakerss" target="_blank" rel="noopener">Open Instagram</a>
       </div>
 
+      <!-- Email -->
       <div class="contact-card">
         <div class="c-top">
           <div class="icon" aria-hidden="true">
@@ -757,6 +704,7 @@
         <a class="btn" href="mailto:akaldeep001@gmail.com">Email Wallmakers</a>
       </div>
 
+      <!-- WhatsApp -->
       <div class="contact-card">
         <div class="c-top">
           <div class="icon" aria-hidden="true">
@@ -783,6 +731,7 @@
     </div>
   </footer>
 
+  <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <div class="lightbox-inner" role="dialog" aria-modal="true" aria-label="Image preview">
       <div class="lightbox-top">
@@ -795,14 +744,17 @@
 
   <script>
     (function () {
+      // Always open at top unless URL has a hash
       if (!window.location.hash) {
         try { window.history.scrollRestoration = "manual"; } catch(e) {}
         window.scrollTo(0, 0);
       }
 
+      // Footer year
       var y = document.getElementById("y");
       if (y) y.textContent = new Date().getFullYear();
 
+      // LIGHTBOX
       var lb = document.getElementById("lightbox");
       var lbImg = document.getElementById("lightboxImg");
       var lbTitle = document.getElementById("lightboxTitle");
@@ -834,6 +786,7 @@
         if (e.key === "Escape") closeLightbox();
       });
 
+      // SCROLLSPY (stable: choose the most visible section)
       var navLinks = Array.from(document.querySelectorAll(".nav-links a"))
         .filter(function(a){ return a.getAttribute("href") && a.getAttribute("href").startsWith("#"); });
 
@@ -847,6 +800,7 @@
         });
       }
 
+      // initial active: hash or first section
       if (window.location.hash && document.querySelector(window.location.hash)) {
         setActive(window.location.hash.slice(1));
       } else if (sections[0]) {
@@ -860,6 +814,7 @@
           ratios.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
         });
 
+        // pick id with highest ratio
         var bestId = null;
         var best = 0;
         ratios.forEach(function(v, k){
