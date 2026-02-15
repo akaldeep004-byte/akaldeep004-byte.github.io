@@ -22,12 +22,14 @@
       --max:1120px;
       --r:18px;
 
+      /* subtle hover */
       --scale: 1.012;
       --ease: cubic-bezier(.2,.8,.2,1);
 
-      --acc1: rgba(255, 196, 92, .28);
-      --acc2: rgba(110, 231, 255, .22);
-      --acc3: rgba(167, 139, 250, .22);
+      /* accents */
+      --acc1: rgba(255, 196, 92, .22);
+      --acc2: rgba(110, 231, 255, .18);
+      --acc3: rgba(167, 139, 250, .18);
     }
 
     *{box-sizing:border-box}
@@ -100,9 +102,7 @@
       align-items:center;
       min-width: 0;
     }
-    .nav-group.right{
-      margin-left:auto; /* pushes to far right */
-    }
+    .nav-group.right{ margin-left:auto; }
 
     .nav-links a{
       padding:8px 10px;
@@ -121,7 +121,7 @@
       background:#ffffff;
       color:#0a0a0b;
       border-color: transparent;
-      font-weight:700;
+      font-weight:800;
       transform:none;
     }
 
@@ -285,38 +285,66 @@
     .span-5{grid-column: span 5;}
     .span-4{grid-column: span 4;}
 
-    /* PROCESS */
+    /* ===== PROCESS (Premium + aligned + interactive) ===== */
     .process-shell{
       position: relative;
-      border-radius: var(--r);
+      border-radius: 22px;
       border: 1px solid rgba(255,255,255,.10);
       background:
-        radial-gradient(700px 260px at 20% 10%, var(--acc2), transparent 55%),
-        radial-gradient(600px 260px at 80% 30%, var(--acc3), transparent 55%),
-        radial-gradient(600px 260px at 30% 90%, var(--acc1), transparent 60%),
+        radial-gradient(900px 380px at 18% 0%, var(--acc2), transparent 55%),
+        radial-gradient(800px 380px at 85% 35%, var(--acc3), transparent 55%),
+        radial-gradient(820px 420px at 35% 110%, var(--acc1), transparent 60%),
         rgba(255,255,255,.02);
-      padding:16px;
+      padding: 16px;
       overflow:hidden;
+      transition: transform .22s var(--ease), border-color .22s var(--ease);
+      transform: translateZ(0);
+    }
+    .process-shell:hover{
+      transform: scale(1.004);
+      border-color: rgba(255,255,255,.16);
     }
     .process-shell::after{
       content:"";
       position:absolute; inset:-2px;
       background: linear-gradient(120deg, rgba(255,255,255,.16), rgba(255,255,255,0));
-      opacity:.22;
+      opacity:.18;
       pointer-events:none;
     }
- .process-grid{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:12px;
-  align-items:stretch;
-}
 
-.process-left{min-height:360px; display:flex;}
-.process-right{min-height:360px; display:grid; grid-template-rows:repeat(3,1fr); gap:12px;}
-
-.p-left-inner{width:100%; display:flex; flex-direction:column; justify-content:flex-start;}
+    .process-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 14px;
+      align-items:stretch;
     }
+
+    /* shared card look */
+    .p-card{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(10,10,11,.58);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 70px rgba(0,0,0,.35);
+      transition: transform .22s var(--ease), border-color .22s var(--ease), background .22s var(--ease);
+      transform: translateZ(0);
+    }
+    .p-card:hover{
+      transform: scale(var(--scale));
+      border-color: rgba(255,255,255,.22);
+      background: rgba(10,10,11,.64);
+    }
+
+    .process-left{ display:flex; min-height: 340px; }
+    .p-left-inner{
+      width:100%;
+      padding: 18px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap: 14px;
+    }
+
     .p-title{
       font-weight:900;
       letter-spacing:-.01em;
@@ -324,28 +352,69 @@
       margin:0;
     }
     .p-sub{
-      color: var(--muted);
-      font-size:14px;
-      margin:6px 0 0;
-      max-width: 56ch;
-    }
-    .p-micro{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
       color: rgba(255,255,255,.72);
-      font-size:12px;
-      margin-top: 10px;
+      font-size:14px;
+      margin:10px 0 0;
+      line-height: 1.65;
+      max-width: 62ch;
     }
-    .chip{
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-      padding:7px 10px;
+
+    .process-right{
+      min-height: 340px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      position: relative;
+    }
+    /* subtle vertical rail to unify the right stack */
+    .process-right::before{
+      content:"";
+      position:absolute;
+      left: 14px;
+      top: 14px;
+      bottom: 14px;
+      width: 2px;
       border-radius: 999px;
-      transition: transform .20s var(--ease), background .20s var(--ease);
-      transform: translateZ(0);
+      background: linear-gradient(
+        180deg,
+        rgba(110,231,255,.55),
+        rgba(167,139,250,.45),
+        rgba(255,196,92,.35)
+      );
+      opacity: .22;
+      pointer-events:none;
+      transition: opacity .22s var(--ease);
     }
-    .chip:hover{transform: scale(var(--scale)); background: rgba(255,255,255,.06);}
+    .process-shell:hover .process-right::before{ opacity: .34; }
+
+    .step-card{
+      padding: 14px 14px 14px 22px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      transition: transform .22s var(--ease), border-color .22s var(--ease), background .22s var(--ease);
+      transform: translateZ(0);
+      position: relative;
+    }
+    .step-card::before{
+      content:"";
+      position:absolute;
+      left: 12px;
+      top: 18px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .step-card:hover{
+      transform: scale(1.01);
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.05);
+    }
+    .step-card .p-title{ font-size: 14px; font-weight: 850; }
+    .step-card .p-sub{ font-size: 13px; margin-top: 6px; max-width: unset; }
 
     /* ENQUIRY */
     .cta-bar{
@@ -484,7 +553,6 @@
 
       .contact-grid{grid-template-columns: 1fr}
 
-      /* nav scroll on mobile */
       .nav-links{min-width:0}
       .nav-group.left{
         overflow:auto;
@@ -506,17 +574,15 @@
       </a>
 
       <nav class="nav-links" aria-label="Primary">
-        <!-- left group -->
         <div class="nav-group left">
           <a href="#works">Works</a>
           <a href="#process">Process</a>
           <a href="#contact">Contact</a>
         </div>
 
-        <!-- right group (Enquiry moved far right) -->
-       <div class="nav-group right">
-  <a href="#enquiry">Enquiry</a>
-</div>
+        <div class="nav-group right">
+          <a href="#enquiry">Enquiry</a>
+        </div>
       </nav>
     </div>
   </div>
@@ -596,56 +662,56 @@
   </section>
 
   <section id="process" class="wrap">
-  <div class="section-head">
-    <h2>Process</h2>
-    <p>Clear steps. Premium finish. No surprises.</p>
-  </div>
+    <div class="section-head">
+      <h2>Process</h2>
+      <p>Clear steps. Premium finish. No surprises.</p>
+    </div>
 
-  <div class="process-shell">
-    <div class="process-grid">
-      <!-- LEFT: one big write-up card -->
-      <div class="process-left">
-        <div class="p-card p-left-inner">
-          <div>
-            <p class="p-title">From concept → premium finish</p>
-            <p class="p-sub">
-              We start with a short consult to understand the space, lighting, and your style.
-              Then we design a clean, premium concept that complements your interior (or your brand).
-              Once approved, we prep surfaces properly and install with precision—so the final work looks intentional,
-              high-end, and built to last.
-            </p>
+    <div class="process-shell">
+      <div class="process-grid">
+        <!-- LEFT -->
+        <div class="process-left">
+          <div class="p-card p-left-inner">
+            <div>
+              <p class="p-title">From concept → premium finish</p>
+              <p class="p-sub">
+                We start with a short consult to understand the space, lighting, and your style.
+                Then we design a clean, premium concept that complements your interior (or your brand).
+                Once approved, we prep surfaces properly and install with precision—so the final work looks intentional,
+                high-end, and built to last.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="process-right">
+          <div class="step-card">
+            <p class="p-title" style="margin:0;">Consult</p>
+            <p class="p-sub">Space review, inspiration, measurements, timeline.</p>
+          </div>
+
+          <div class="step-card">
+            <p class="p-title" style="margin:0;">Design</p>
+            <p class="p-sub">Mockups, palette refinement, final approval.</p>
+          </div>
+
+          <div class="step-card">
+            <p class="p-title" style="margin:0;">Install</p>
+            <p class="p-sub">Surface prep, precision execution, clean finish.</p>
           </div>
         </div>
       </div>
-
-      <!-- RIGHT: three stacked cards -->
-      <div class="process-right">
-        <div class="p-card">
-          <p class="p-title" style="margin:0;">Consult</p>
-          <p class="p-sub">Space review, inspiration, measurements, timeline.</p>
-        </div>
-
-        <div class="p-card">
-          <p class="p-title" style="margin:0;">Design</p>
-          <p class="p-sub">Mockups, palette refinement, final approval.</p>
-        </div>
-
-        <div class="p-card">
-          <p class="p-title" style="margin:0;">Install</p>
-          <p class="p-sub">Surface prep, precision execution, clean finish.</p>
-        </div>
-      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <section id="enquiry" class="wrap">
     <div class="cta-bar">
       <div>
         <div class="kicker">Enquiry</div>
         <div style="font-size:18px; font-weight:900; margin-top:6px;">
-  Request a quote from Wallmakers.
-</div>
+          Request a quote from Wallmakers.
+        </div>
         <div style="color:var(--muted); margin-top:6px; font-size:14px;">
           Next step: we’ll add your enquiry form here with the exact fields you want.
         </div>
@@ -664,7 +730,6 @@
       <div class="contact-card">
         <div class="c-top">
           <div class="icon" aria-hidden="true">
-            <!-- Instagram icon -->
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M7.5 2.5h9A5 5 0 0 1 21.5 7.5v9a5 5 0 0 1-5 5h-9a5 5 0 0 1-5-5v-9a5 5 0 0 1 5-5Z" stroke="rgba(255,255,255,.92)" stroke-width="1.6"/>
               <path d="M12 16.2a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4Z" stroke="rgba(255,255,255,.92)" stroke-width="1.6"/>
@@ -684,7 +749,6 @@
       <div class="contact-card">
         <div class="c-top">
           <div class="icon" aria-hidden="true">
-            <!-- Email icon -->
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M4.5 7.5h15a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-15a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2Z" stroke="rgba(255,255,255,.92)" stroke-width="1.6"/>
               <path d="M5 9l7 5 7-5" stroke="rgba(255,255,255,.92)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -703,7 +767,6 @@
       <div class="contact-card">
         <div class="c-top">
           <div class="icon" aria-hidden="true">
-            <!-- WhatsApp icon (simplified) -->
             <svg viewBox="0 0 24 24" fill="none">
               <path d="M12 21a9 9 0 1 0-7.8-4.5L3 21l4.7-1.1A9 9 0 0 0 12 21Z" stroke="rgba(255,255,255,.92)" stroke-width="1.6" stroke-linejoin="round"/>
               <path d="M9.2 8.8c.2-.4.4-.4.6-.4h.5c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.1.6l-.4.4c-.1.1-.2.3-.1.5.3.9 1.3 1.9 2.2 2.2.2.1.4 0 .5-.1l.4-.4c.2-.2.4-.2.6-.1l1.7.7c.3.1.4.3.4.5v.5c0 .2 0 .4-.4.6-.5.3-1.4.6-2.7.2-1.7-.6-3.5-2.3-4.5-4.5-.4-1.3-.1-2.2.2-2.7Z"
@@ -782,7 +845,7 @@
         if (e.key === "Escape") closeLightbox();
       });
 
-      // SCROLLSPY: include both left and right groups
+      // SCROLLSPY (stable: choose the most visible section)
       var navLinks = Array.from(document.querySelectorAll(".nav-links a"))
         .filter(function(a){ return a.getAttribute("href") && a.getAttribute("href").startsWith("#"); });
 
@@ -796,19 +859,37 @@
         });
       }
 
-      setActive("works");
+      // initial active: hash or first section
+      if (window.location.hash && document.querySelector(window.location.hash)) {
+        setActive(window.location.hash.slice(1));
+      } else if (sections[0]) {
+        setActive(sections[0].id);
+      }
+
+      var ratios = new Map();
 
       var spy = new IntersectionObserver(function(entries){
         entries.forEach(function(entry){
-          if (entry.isIntersecting) setActive(entry.target.id);
+          ratios.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
         });
+
+        // pick id with highest ratio
+        var bestId = null;
+        var best = 0;
+        ratios.forEach(function(v, k){
+          if (v > best) { best = v; bestId = k; }
+        });
+        if (bestId) setActive(bestId);
       }, {
         root: null,
-        threshold: 0.01,
-        rootMargin: "-45% 0px -45% 0px"
+        threshold: [0, 0.12, 0.25, 0.4, 0.55, 0.7],
+        rootMargin: "-20% 0px -55% 0px"
       });
 
-      sections.forEach(function(sec){ spy.observe(sec); });
+      sections.forEach(function(sec){
+        ratios.set(sec.id, 0);
+        spy.observe(sec);
+      });
 
       navLinks.forEach(function(a){
         a.addEventListener("click", function(){
