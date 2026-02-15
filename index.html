@@ -310,7 +310,15 @@
       .cards{grid-template-columns: 1fr}
       .story{grid-template-columns: 1fr}
       .sticky{position:relative; top:auto}
-      .nav-links{display:none}
+      .nav-links{
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  white-space:nowrap;
+  max-width:55vw;
+  scrollbar-width:none;
+}
+.nav-links::-webkit-scrollbar{display:none}
       .work{grid-column: span 12;}
       .span-6,.span-3,.span-5,.span-7{grid-column: span 12;}
       .hero-visual{min-height:360px}
