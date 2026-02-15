@@ -102,11 +102,12 @@
       transform: scale(var(--hoverScaleSm));
       background: rgba(255,255,255,.04);
     }
-    .nav-links a.active{
-      color:var(--text);
-      border-color: var(--line);
-      background: rgba(255,255,255,.06);
-    }
+.nav-links a.active{
+  color: #0a0a0b;
+  background: #ffffff;
+  border-color: transparent;
+  font-weight: 700;
+}
 
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
@@ -216,25 +217,26 @@
     }
     .badge b{color:var(--text)}
 
-    /* SECTIONS */
-    section{padding:48px 0}
-    .section-head{
-      display:flex; justify-content:space-between; align-items:flex-end; gap:16px;
-      margin-bottom:14px;
-    }
-    .section-head h2{
-      margin:0;
-      font-size:22px;
-      letter-spacing:-.01em;
-    }
-    .section-head p{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-      max-width:60ch;
-    }
-section { scroll-margin-top: 90px; }
-    
+  /* SECTIONS */
+section{
+  padding:48px 0;
+  scroll-margin-top: 90px;
+}
+.section-head{
+  display:flex; justify-content:space-between; align-items:flex-end; gap:16px;
+  margin-bottom:14px;
+}
+.section-head h2{
+  margin:0;
+  font-size:22px;
+  letter-spacing:-.01em;
+}
+.section-head p{
+  margin:0;
+  color:var(--muted);
+  font-size:14px;
+  max-width:60ch;
+}
     /* WORKS */
     .grid{
       display:grid;
@@ -603,7 +605,7 @@ section { scroll-margin-top: 90px; }
     }, { threshold: 0.12 });
     revealEls.forEach(el => io.observe(el));
 
-  // ScrollSpy nav highlight (marker-line, reliable)
+ // ScrollSpy nav highlight (viewport marker) + DEBUG
 const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
 const sections = navLinks
   .map(a => document.querySelector(a.getAttribute("href")))
@@ -611,27 +613,24 @@ const sections = navLinks
 
 function activate(id) {
   navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
+  // DEBUG: show which section is active in the browser tab title
+  document.title = "Wallmakers • " + id.toUpperCase();
 }
 
 function setActiveLink() {
-  const nav = document.querySelector(".nav");
-  const navH = nav ? nav.offsetHeight : 74;
-
-  // "marker line" just below sticky nav
-  const marker = navH + 12;
-
+  const marker = Math.floor(window.innerHeight * 0.35);
   let current = sections[0]?.id || "";
 
   for (const s of sections) {
     const r = s.getBoundingClientRect();
-    // If section has crossed the marker line, it becomes current
-    if (r.top <= marker) current = s.id;
+    if (r.top <= marker && r.bottom > marker) {
+      current = s.id;
+      break;
+    }
   }
-
   activate(current);
 }
 
-// Run on scroll + load (smooth)
 let ticking = false;
 window.addEventListener("scroll", () => {
   if (!ticking) {
@@ -647,10 +646,8 @@ window.addEventListener("load", setActiveLink);
 window.addEventListener("resize", setActiveLink);
 window.addEventListener("hashchange", setActiveLink);
 
-// Also update immediately on click
 navLinks.forEach(a => a.addEventListener("click", () => {
-  const id = a.getAttribute("href").slice(1);
-  activate(id);
+  activate(a.getAttribute("href").slice(1));
 }));
 
     // Lightbox
