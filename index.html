@@ -602,47 +602,55 @@
     }, { threshold: 0.12 });
     revealEls.forEach(el => io.observe(el));
 
-    // ScrollSpy nav highlight (IntersectionObserver - most reliable)
+  // ScrollSpy nav highlight (marker-line, reliable)
 const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
-const sectionById = new Map(
-  navLinks.map(a => [a.getAttribute("href").slice(1), document.getElementById(a.getAttribute("href").slice(1))])
-);
-
-// Observe only existing sections
-const observedSections = Array.from(sectionById.values()).filter(Boolean);
+const sections = navLinks
+  .map(a => document.querySelector(a.getAttribute("href")))
+  .filter(Boolean);
 
 function activate(id) {
   navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
 }
 
-// Default active
-if (observedSections[0]) activate(observedSections[0].id);
+function setActiveLink() {
+  const nav = document.querySelector(".nav");
+  const navH = nav ? nav.offsetHeight : 74;
 
-const spy = new IntersectionObserver((entries) => {
-  // Pick the entry closest to the top that is intersecting
-  const visible = entries
-    .filter(e => e.isIntersecting)
-    .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+  // "marker line" just below sticky nav
+  const marker = navH + 12;
 
-  if (visible.length > 0) {
-    activate(visible[0].target.id);
+  let current = sections[0]?.id || "";
+
+  for (const s of sections) {
+    const r = s.getBoundingClientRect();
+    // If section has crossed the marker line, it becomes current
+    if (r.top <= marker) current = s.id;
   }
-}, {
-  // This makes the "active" switch when section reaches below navbar area
-  root: null,
-  threshold: 0.15,
-  rootMargin: "-90px 0px -60% 0px"
-});
 
-observedSections.forEach(sec => spy.observe(sec));
+  activate(current);
+}
 
-// Also update when user clicks nav
-navLinks.forEach(a => {
-  a.addEventListener("click", () => {
-    const id = a.getAttribute("href").slice(1);
-    setTimeout(() => activate(id), 0);
-  });
-});
+// Run on scroll + load (smooth)
+let ticking = false;
+window.addEventListener("scroll", () => {
+  if (!ticking) {
+    ticking = true;
+    requestAnimationFrame(() => {
+      setActiveLink();
+      ticking = false;
+    });
+  }
+}, { passive: true });
+
+window.addEventListener("load", setActiveLink);
+window.addEventListener("resize", setActiveLink);
+window.addEventListener("hashchange", setActiveLink);
+
+// Also update immediately on click
+navLinks.forEach(a => a.addEventListener("click", () => {
+  const id = a.getAttribute("href").slice(1);
+  activate(id);
+}));
 
     // Lightbox
     const lb = document.getElementById("lightbox");
