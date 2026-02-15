@@ -312,14 +312,13 @@
       align-items:stretch;
     }
     .process-right{
-      display:grid;
-      grid-template-rows: repeat(3, 1fr);
-      gap:12px;
-      min-height: 360px;
-    }
+  display:flex;
+  flex-direction:column;
+}
     .process-left{
-      min-height: 360px;
-      display:flex;
+  display:flex;
+  flex-direction:column;
+}
     }
     .p-card{
       border-radius: 16px;
@@ -628,8 +627,8 @@
 
     <div class="process-shell">
       <div class="process-grid">
-        <div class="process-left">
-          <div class="p-card p-left-inner">
+        <<div class="process-left">
+  <div class="p-card p-left-inner" style="flex:1;">
             <div>
               <p class="p-title">From concept → premium finish</p>
               <p class="p-sub">
@@ -638,22 +637,22 @@
                 work looks intentional, high-end, and built to last.
               </p>
              
-        <div class="process-right">
-          <div class="p-card">
-            <p class="p-title" style="margin:0;">Consult</p>
-            <p class="p-sub">Space review, inspiration, measurements, timeline.</p>
-          </div>
-          <div class="p-card">
-            <p class="p-title" style="margin:0;">Design</p>
-            <p class="p-sub">Mockups, palette refinement, final approval.</p>
-          </div>
-          <div class="p-card">
-            <p class="p-title" style="margin:0;">Install</p>
-            <p class="p-sub">Surface prep, precision execution, clean finish.</p>
-          </div>
-        </div>
-      </div>
-    </div>
+     <div class="process-right">
+  <div class="p-card" style="flex:1;">
+    <p class="p-title">Consult</p>
+    <p class="p-sub">Space review, inspiration, measurements, timeline.</p>
+  </div>
+
+  <div class="p-card" style="flex:1;">
+    <p class="p-title">Design</p>
+    <p class="p-sub">Mockups, palette refinement, final approval.</p>
+  </div>
+
+  <div class="p-card" style="flex:1;">
+    <p class="p-title">Install</p>
+    <p class="p-sub">Surface prep, precision execution, clean finish.</p>
+  </div>
+</div>
   </section>
 
   <section id="enquiry" class="wrap">
