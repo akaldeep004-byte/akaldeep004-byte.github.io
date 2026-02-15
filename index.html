@@ -350,8 +350,8 @@
     <div class="hero">
       <div class="reveal">
         <div class="kicker">Custom Wall Art • Greater Toronto Area</div>
-        <h1>Minimal, luxury wall art that transforms spaces.</h1>
-        <p class="lead">Custom wall art for residential and commercial spaces across the GTA.</p>
+        <h1>The Art that transforms spaces.</h1>
+        <p class="lead">Wallmakers creates bespoke murals and feature walls for homes, cafés, restaurants, and offices across the GTA—designed for your space and finished to a premium standard.</p>
 
         <div class="cta">
           <a class="btn primary" href="#works">Explore Works</a>
@@ -471,7 +471,11 @@
       <img class="lightbox-img" id="lightboxImg" alt="Full-size preview" src="" />
     </div>
   </div>
-
+// Always open at top unless a #hash is in the URL (e.g., #contact)
+if (!window.location.hash) {
+  window.history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
+}
   <script>
     // Year
     document.getElementById("y").textContent = new Date().getFullYear();
