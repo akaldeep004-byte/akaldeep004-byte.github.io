@@ -517,19 +517,28 @@
     }, { threshold: 0.12 });
     revealEls.forEach(el => io.observe(el));
 
-    // Active nav highlight
-    const sections = ["services","works","process","contact"].map(id => document.getElementById(id));
-    const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
-    const sio = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        navLinks.forEach(a => a.classList.remove("active"));
-        const id = entry.target.id;
-        const link = navLinks.find(a => a.getAttribute("href") === "#" + id);
-        if (link) link.classList.add("active");
-      });
-    }, { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 });
-    sections.forEach(s => s && sio.observe(s));
+    // Active nav highlight (reliable)
+const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
+const sectionIds = navLinks.map(a => a.getAttribute("href").replace("#",""));
+const sections = sectionIds
+  .map(id => document.getElementById(id))
+  .filter(Boolean);
+
+function setActiveLink() {
+  const y = window.scrollY + 140; // offset for sticky nav
+  let current = sections[0]?.id;
+
+  for (const s of sections) {
+    if (s.offsetTop <= y) current = s.id;
+  }
+
+  navLinks.forEach(a => {
+    a.classList.toggle("active", a.getAttribute("href") === "#" + current);
+  });
+}
+
+window.addEventListener("scroll", setActiveLink, { passive: true });
+window.addEventListener("load", setActiveLink);
 
     // Lightbox
     const lb = document.getElementById("lightbox");
