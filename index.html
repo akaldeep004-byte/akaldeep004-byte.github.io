@@ -86,7 +86,7 @@
       background: rgba(255,255,255,.06);
     }
 
-    /* split nav: left group + right group */
+    /* split nav */
     .nav-links{
       display:flex;
       gap:10px;
@@ -200,7 +200,7 @@
       margin: 0 0 28px;
     }
 
-    /* ===== HERO META (ADDED) ===== */
+    /* HERO META */
     .hero-meta{
       margin-top: 34px;
       display: flex;
@@ -221,7 +221,6 @@
     }
 
     .hero-categories span{
-      position: relative;
       padding: 6px 10px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.12);
@@ -438,21 +437,6 @@
     .step-card .p-title{ font-size: 14px; font-weight: 850; }
     .step-card .p-sub{ font-size: 13px; margin-top: 6px; max-width: unset; }
 
-    /* ENQUIRY */
-    .cta-bar{
-      border:1px solid var(--line);
-      border-radius: var(--r);
-      padding:18px;
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
-      transition: transform .20s var(--ease), border-color .20s var(--ease);
-      transform: translateZ(0);
-    }
-    .cta-bar:hover{
-      transform: scale(var(--scale));
-      border-color: rgba(255,255,255,.18);
-    }
-
     /* CONTACT */
     .contact-grid{
       display:grid;
@@ -592,14 +576,15 @@
       </a>
 
       <nav class="nav-links" aria-label="Primary">
+        <!-- LEFT: Works + Process -->
         <div class="nav-group left">
           <a href="#works">Works</a>
           <a href="#process">Process</a>
-          <a href="#contact">Contact</a>
         </div>
 
+        <!-- RIGHT: Contact (moved to right) -->
         <div class="nav-group right">
-          <a href="#enquiry">Enquiry</a>
+          <a href="#contact">Contact</a>
         </div>
       </nav>
     </div>
@@ -617,10 +602,9 @@
 
       <div class="cta">
         <a class="btn primary" href="#works">Explore Works</a>
-        <a class="btn" href="#enquiry">Request a Quote</a>
+        <a class="btn" href="#contact">Contact</a>
       </div>
 
-      <!-- ===== ADDED: HERO META CONTENT ===== -->
       <div class="hero-meta">
         <div class="hero-categories" aria-label="Project types">
           <span>Residential</span>
@@ -640,8 +624,6 @@
           </div>
         </div>
       </div>
-      <!-- ===== /ADDED ===== -->
-
     </div>
   </header>
 
@@ -699,7 +681,6 @@
 
     <div class="process-shell">
       <div class="process-grid">
-        <!-- LEFT -->
         <div class="process-left">
           <div class="p-card p-left-inner">
             <div>
@@ -714,7 +695,6 @@
           </div>
         </div>
 
-        <!-- RIGHT -->
         <div class="process-right">
           <div class="step-card">
             <p class="p-title" style="margin:0;">Consult</p>
@@ -735,29 +715,13 @@
     </div>
   </section>
 
-  
-  <section id="enquiry" class="wrap">
-    <div class="cta-bar">
-      <div>
-        <div class="kicker">Enquiry</div>
-        <div style="font-size:18px; font-weight:900; margin-top:6px;">
-          Request a quote from Wallmakers.
-        </div>
-        <div style="color:var(--muted); margin-top:6px; font-size:14px;">
-          Next step: we’ll add your enquiry form here with the exact fields you want.
-        </div>
-      </div>
-      <a class="btn primary" href="#enquiry">Add Enquiry Form (Next)</a>
-    </div>
-  </section>
-
   <section id="contact" class="wrap">
     <div class="section-head">
       <h2>Contact</h2>
+      <p>Reach out — we respond quickly in GTA hours.</p>
     </div>
 
     <div class="contact-grid">
-      <!-- Instagram -->
       <div class="contact-card">
         <div class="c-top">
           <div class="icon" aria-hidden="true">
@@ -776,7 +740,6 @@
         <a class="btn" href="https://instagram.com/wallmakerss" target="_blank" rel="noopener">Open Instagram</a>
       </div>
 
-      <!-- Email -->
       <div class="contact-card">
         <div class="c-top">
           <div class="icon" aria-hidden="true">
@@ -794,7 +757,6 @@
         <a class="btn" href="mailto:akaldeep001@gmail.com">Email Wallmakers</a>
       </div>
 
-      <!-- WhatsApp -->
       <div class="contact-card">
         <div class="c-top">
           <div class="icon" aria-hidden="true">
@@ -821,7 +783,6 @@
     </div>
   </footer>
 
-  <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <div class="lightbox-inner" role="dialog" aria-modal="true" aria-label="Image preview">
       <div class="lightbox-top">
@@ -834,17 +795,14 @@
 
   <script>
     (function () {
-      // Always open at top unless URL has a hash
       if (!window.location.hash) {
         try { window.history.scrollRestoration = "manual"; } catch(e) {}
         window.scrollTo(0, 0);
       }
 
-      // Footer year
       var y = document.getElementById("y");
       if (y) y.textContent = new Date().getFullYear();
 
-      // LIGHTBOX
       var lb = document.getElementById("lightbox");
       var lbImg = document.getElementById("lightboxImg");
       var lbTitle = document.getElementById("lightboxTitle");
@@ -876,7 +834,6 @@
         if (e.key === "Escape") closeLightbox();
       });
 
-      // SCROLLSPY (stable: choose the most visible section)
       var navLinks = Array.from(document.querySelectorAll(".nav-links a"))
         .filter(function(a){ return a.getAttribute("href") && a.getAttribute("href").startsWith("#"); });
 
@@ -890,7 +847,6 @@
         });
       }
 
-      // initial active: hash or first section
       if (window.location.hash && document.querySelector(window.location.hash)) {
         setActive(window.location.hash.slice(1));
       } else if (sections[0]) {
@@ -904,7 +860,6 @@
           ratios.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
         });
 
-        // pick id with highest ratio
         var bestId = null;
         var best = 0;
         ratios.forEach(function(v, k){
